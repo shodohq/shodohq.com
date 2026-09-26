@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>記事：そのバックアップは、本当に戻せるか</title>
+<!-- Design reference exported from Claude Design. Visual source of truth only: rebuild with components and design/tokens.css, do not copy inline styles. -->
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFAF7}
+a{color:#0F0F10}a:hover{color:#2440D6}
+</style>
+</head>
+<body>
+<div style="margin: 0 auto; width: 1440px; display: flex; flex-direction: column; background: #FAFAF7; color: #0F0F10; font-family: 'Zen Kaku Gothic Antique', 'Hiragino Sans', 'Yu Gothic', sans-serif">
+
+<header style="height: 96px; flex-shrink: 0; box-sizing: border-box; padding: 0 120px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #DADAD4">
+<a href="ja-top.html" style="display: flex; align-items: baseline; gap: 14px; text-decoration: none">
+<span style="font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 800; letter-spacing: 0.04em">衝動</span>
+<span style="font-size: 11px; letter-spacing: 0.3em; color: #55565A">SHODO</span>
+</a>
+<nav aria-label="メイン" style="display: flex; align-items: center; gap: 36px; font-size: 14px; letter-spacing: 0.08em">
+<a href="ja-products.html" style="text-decoration: none">製品</a>
+<a href="ja-poc.html" style="text-decoration: none">PoC募集</a>
+<a href="ja-articles.html" aria-current="page" style="font-weight: 700; text-decoration: underline; text-underline-offset: 8px">記事</a>
+<a href="ja-company.html" style="text-decoration: none">会社情報</a>
+<a href="ja-contact.html" style="text-decoration: none">お問い合わせ</a>
+<span style="display: flex; gap: 8px; color: #55565A"><span style="color: #0F0F10; font-weight: 700">JA</span><span>/</span><a href="en-articles.html" style="text-decoration: none; color: #55565A">EN</a></span>
+</nav>
+</header>
+
+<section style="padding: 72px 120px 0; display: flex; flex-direction: column; gap: 32px">
+<nav aria-label="パンくずリスト" style="display: flex; gap: 12px; font-size: 13px; color: #55565A">
+<a href="ja-top.html" style="color: #55565A; text-decoration: none">トップ</a><span aria-hidden="true">／</span><a href="ja-articles.html" style="color: #55565A; text-decoration: none">記事</a><span aria-hidden="true">／</span><span style="color: #0F0F10">復旧</span>
+</nav>
+<div style="display: flex; gap: 20px; font-size: 14px; color: #55565A">
+<span>2026.10.01</span>
+<span>復旧</span>
+<span>5分で読めます</span>
+</div>
+<h1 style="margin: 0; max-width: 1000px; font-family: 'Shippori Mincho B1', serif; font-weight: 700; font-size: 60px; line-height: 1.5">そのバックアップは、本当に戻せるか</h1>
+<p style="margin: 0; max-width: 880px; font-size: 18px; line-height: 2; color: #2E2F33; text-wrap: pretty">バックアップを取っていても、いざというときに戻せるとは限りません。ランサムウェアの被害では、バックアップそのものが削除され、復旧が長引いた例もあります。この記事では、戻せない原因と、平時の点検の進め方を整理します。</p>
+<div aria-hidden="true" style="position: relative; height: 40px; display: flex; align-items: center; margin-top: 24px">
+<span style="flex-grow: 1; height: 1px; background: #0F0F10"></span>
+<span style="position: absolute; left: 760px; top: 6px; width: 28px; height: 28px; border-radius: 50%; background: #2440D6"></span>
+</div>
+</section>
+
+<section style="padding: 72px 120px 144px; display: grid; grid-template-columns: 240px 720px; gap: 120px; align-items: start">
+<nav aria-label="目次" style="display: flex; flex-direction: column; gap: 16px; font-size: 14px; line-height: 1.7">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em">目次</span>
+<a href="#s1" style="text-decoration: none; color: #2E2F33">バックアップも狙われる</a>
+<a href="#s2" style="text-decoration: none; color: #2E2F33">復旧を止める5つの原因</a>
+<a href="#s3" style="text-decoration: none; color: #2E2F33">統一基準も点検を求めている</a>
+<a href="#s4" style="text-decoration: none; color: #2E2F33">点検の進め方</a>
+<a href="#s5" style="text-decoration: none; color: #2E2F33">まとめ</a>
+</nav>
+<article style="display: flex; flex-direction: column; gap: 24px; font-size: 17px; line-height: 2.1; color: #1E1F22">
+<div style="padding: 28px 0; border-top: 1px solid #0F0F10; border-bottom: 1px solid #0F0F10; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 14px; font-weight: 700">この記事の要点</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.9">
+<li style="display: grid; grid-template-columns: 20px minmax(0, 1fr)"><span aria-hidden="true" style="width: 6px; height: 6px; margin-top: 13px; border-radius: 50%; background: #2440D6"></span><span>攻撃者は、復旧を難しくするためにバックアップも狙います。</span></li>
+<li style="display: grid; grid-template-columns: 20px minmax(0, 1fr)"><span aria-hidden="true" style="width: 6px; height: 6px; margin-top: 13px; border-radius: 50%; background: #2440D6"></span><span>手順書、復旧用のID、担当者など、バックアップ以外の原因でも復旧は止まります。</span></li>
+<li style="display: grid; grid-template-columns: 20px minmax(0, 1fr)"><span aria-hidden="true" style="width: 6px; height: 6px; margin-top: 13px; border-radius: 50%; background: #2440D6"></span><span>「このシステムが暗号化されたら、誰が、何を使って戻すのか」を机上でたどってみましょう。</span></li>
+</ul>
+</div>
+<h2 id="s1" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">バックアップも狙われる</h2>
+<p style="margin: 0">ランサムウェアの攻撃者は、身代金を払わせるために、復旧を難しくしようとします。そのため、データを暗号化する前に、バックアップを削除したり暗号化したりすることがあります。</p>
+<p style="margin: 0">2025年の国内の事案でも、ランサムウェアがバックアップファイルの削除まで実行したことが、復旧が長引いた大きな原因になりました。</p>
+<h2 id="s2" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">復旧を止める5つの原因</h2>
+<p style="margin: 0">復旧を止めるのは、バックアップがあるかどうかだけではありません。次の5つは、平時には気づきにくい原因です。</p>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid #DADAD4">
+<li style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 20px 0; border-bottom: 1px solid #DADAD4"><span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 500; line-height: 1.4">一</span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 700; line-height: 1.6">手順書が、止まるシステムの中にある</span><span style="font-size: 15px; line-height: 1.9">復旧の手順書がファイルサーバーや社内のWikiにしかないと、そのシステムが止まったときに手順書を開けません。</span></span></li>
+<li style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 20px 0; border-bottom: 1px solid #DADAD4"><span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 500; line-height: 1.4">二</span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 700; line-height: 1.6">復旧用のIDが、止まる認証基盤に依存している</span><span style="font-size: 15px; line-height: 1.9">バックアップの管理画面にログインするIDが、暗号化された認証基盤に依存していると、復旧の作業を始められません。</span></span></li>
+<li style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 20px 0; border-bottom: 1px solid #DADAD4"><span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 500; line-height: 1.4">三</span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 700; line-height: 1.6">バックアップが、元のシステムと同じ環境にある</span><span style="font-size: 15px; line-height: 1.9">同じネットワークにあり、同じ権限で操作できるバックアップは、元のシステムと一緒に暗号化されたり削除されたりするおそれがあります。</span></span></li>
+<li style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 20px 0; border-bottom: 1px solid #DADAD4"><span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 500; line-height: 1.4">四</span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 700; line-height: 1.6">担当者が1人しかいない</span><span style="font-size: 15px; line-height: 1.9">復旧の手順を知っている人が1人だけだと、その人が不在のときに作業が止まります。</span></span></li>
+<li style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 20px 0; border-bottom: 1px solid #DADAD4"><span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 500; line-height: 1.4">五</span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 700; line-height: 1.6">目標復旧時間（RTO）に間に合わない</span><span style="font-size: 15px; line-height: 1.9">データの量や回線の速さによっては、戻すこと自体に想定以上の時間がかかります。</span></span></li>
+</ol>
+<h2 id="s3" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">統一基準も点検を求めている</h2>
+<p style="margin: 0">2026年10月1日に施行された重要インフラ統一基準は、バックアップについて、元のシステムと異なるセグメントやオフラインで保管することと、リカバリーの検査を求めています。バックアップを取るだけでなく、実際に戻せるかを確かめることが求められています。</p>
+<h2 id="s4" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">点検の進め方</h2>
+<p style="margin: 0">重要業務ごとに、支えているシステムを挙げ、「このシステムが暗号化されたら、誰が、何を使って、どの手順で戻すのか」を書き出します。そのうえで、手順書、ID、バックアップの置き場所、担当者のそれぞれが、止まるシステムに依存していないかを確かめます。</p>
+<p style="margin: 0">机上で一度たどってみるだけでも、多くの詰まりが見つかります。見つかった詰まりは、机上演習のシナリオにも使えます。</p>
+<h2 id="s5" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">まとめ</h2>
+<p style="margin: 0">バックアップは、戻せてはじめて意味があります。手順書、復旧用のID、保管場所、担当者、時間の5つの観点で、平時に点検しておきましょう。</p>
+<div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #DADAD4; display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 1.8; color: #55565A">
+<span style="font-weight: 700; color: #0F0F10">出典</span>
+<span>アスクル・アサヒのランサムウェア被害比較（赤坂国際法律会計事務所、2026年2月23日）</span>
+<span>重要インフラのサイバーセキュリティ対策のための統一基準（サイバーセキュリティ戦略本部、2026年7月31日）</span>
+</div>
+</article>
+</section>
+
+<section style="padding: 128px 120px; border-top: 1px solid #DADAD4; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-family: 'Shippori Mincho B1', serif; font-weight: 700; font-size: 36px">次に読む</h2>
+<a href="ja-articles.html" style="font-size: 15px; font-weight: 500; text-underline-offset: 6px">すべての記事</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+<a href="ja-article-1.html" style="display: flex; flex-direction: column; gap: 16px; padding-top: 24px; border-top: 1px solid #0F0F10; text-decoration: none">
+<span style="display: flex; gap: 12px; font-size: 13px; color: #55565A"><span>2026.10.01</span><span>制度</span></span>
+<span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 700; line-height: 1.55">サイバー対処能力強化法の届出対象を、どう洗い出すか</span>
+</a>
+<a href="ja-article-2.html" style="display: flex; flex-direction: column; gap: 16px; padding-top: 24px; border-top: 1px solid #0F0F10; text-decoration: none">
+<span style="display: flex; gap: 12px; font-size: 13px; color: #55565A"><span>2026.10.01</span><span>考え方</span></span>
+<span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 700; line-height: 1.55">「全部止める」以外の選択肢をつくる</span>
+</a>
+</div>
+</section>
+
+<section style="background: #2440D6; color: #FFFFFF; padding: 120px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 80px; align-items: end">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span style="font-size: 14px; letter-spacing: 0.12em; color: #E3E7FF">デザインパートナー募集</span>
+<p style="margin: 0; font-family: 'Shippori Mincho B1', serif; font-weight: 700; font-size: 48px; line-height: 1.45">戻せるかどうかを、<br>一緒に確かめませんか。</p>
+<p style="margin: 0; font-size: 16px; line-height: 2; color: #F2F4FF">開発中のPixie for Operationsは、「このシステムが暗号化されたら戻せるか」を机上で検証する機能を構想しています。</p>
+</div>
+<a href="ja-poc.html" style="height: 60px; padding: 0 32px; display: inline-flex; align-items: center; gap: 12px; background: #FFFFFF; color: #0F0F10; text-decoration: none; font-weight: 700; font-size: 16px; border-radius: 30px">デザインパートナーに応募する<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.6"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></a>
+</section>
+
+<footer style="flex-grow: 1; border-top: 1px solid #0F0F10; padding: 96px 120px 56px; display: flex; flex-direction: column; justify-content: space-between; gap: 64px">
+<div style="display: grid; grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); gap: 48px">
+<address style="font-style: normal; font-size: 14px; line-height: 2; color: #2E2F33">株式会社衝動<br>〒965-0003 福島県会津若松市一箕町大字八幡 墓料107番地1<br>設立　2025年5月1日<br>法人番号　<a href="https://www.houjin-bangou.nta.go.jp/henkorireki-johoto.html?selHouzinNo=3011001169688">3011001169688</a></address>
+<nav aria-label="サイト" style="display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span style="font-size: 12px; letter-spacing: 0.14em; color: #55565A">サイト</span>
+<a href="ja-top.html" style="text-decoration: none">トップ</a>
+<a href="ja-poc.html" style="text-decoration: none">PoC募集</a>
+<a href="ja-articles.html" style="text-decoration: none">記事</a>
+<a href="ja-company.html" style="text-decoration: none">会社情報</a>
+<a href="ja-contact.html" style="text-decoration: none">お問い合わせ</a>
+</nav>
+<nav aria-label="製品" style="display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span style="font-size: 12px; letter-spacing: 0.14em; color: #55565A">製品</span>
+<a href="ja-products.html#caasm" style="text-decoration: none">Pixie CAASM</a>
+<a href="ja-products.html#easm" style="text-decoration: none">Pixie EASM</a>
+<a href="ja-products.html#iasm" style="text-decoration: none">Pixie IASM</a>
+<a href="ja-products.html#aspm" style="text-decoration: none">Pixie ASPM</a>
+<a href="ja-pixie-for-operations.html" style="text-decoration: none">Pixie for Operations</a>
+</nav>
+<nav aria-label="ポリシー" style="display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span style="font-size: 12px; letter-spacing: 0.14em; color: #55565A">ポリシー</span>
+<a href="ja-security-policy.html" style="text-decoration: none">セキュリティポリシー</a>
+<a href="ja-security-policy.html#s2" style="text-decoration: none">脆弱性の報告</a>
+<a href="ja-privacy.html" style="text-decoration: none">プライバシーポリシー</a>
+<a href="en-articles.html" style="text-decoration: none">English</a>
+</nav>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: flex-end">
+<span style="display: flex; align-items: flex-end; gap: 20px">
+<span style="font-family: 'Shippori Mincho B1', serif; font-size: 240px; font-weight: 800; line-height: 0.9; letter-spacing: 0.02em">衝動</span>
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #2440D6; margin-bottom: 12px"></span>
+</span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 13px; color: #55565A">
+<a href="security.txt" style="color: #55565A; text-decoration: none">/.well-known/security.txt</a>
+<span>© 2026 株式会社衝動</span>
+</span>
+</div>
+</footer>
+
+</div>
+</body>
+</html>

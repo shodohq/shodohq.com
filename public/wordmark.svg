@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" role="img" aria-label="Shodo — 株式会社衝動">
-  
-  <text x="0" y="40" class="jp">衝</text>
-  <text x="42" y="40" class="jp">動</text>
-  <rect x="90" y="14" width="1" height="36" fill="#171614" opacity="0.35"></rect>
-  <text x="102" y="28" class="en">SHODO</text>
-  <text x="102" y="46" class="en" style="font-weight:400; letter-spacing:0.18em; font-size:10px; fill:#5c5854;">INFRASTRUCTURE · RESILIENCE</text>
-  <circle cx="308" cy="32" r="3" class="accent"></circle>
-</svg>

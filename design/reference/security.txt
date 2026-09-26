@@ -1,0 +1,9 @@
+# Shodo Inc. (株式会社衝動)
+# Security contact for shodohq.com
+
+Contact: mailto:security@shodohq.com
+Contact: https://shodohq.com/contact/
+Expires: 2027-09-01T00:00:00.000Z
+Preferred-Languages: ja, en
+Canonical: https://shodohq.com/.well-known/security.txt
+Policy: https://shodohq.com/security-policy/

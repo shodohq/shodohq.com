@@ -1,0 +1,139 @@
+/*
+ * 株式会社衝動 デザイントークン
+ * 値はすべて design/reference/*.html から抜き出したもの。
+ * 色・文字サイズ・余白は、この変数を使って指定する（値を直接書かない）。
+ */
+
+:root {
+  /* ---------- 色 ---------- */
+  /* 地と文字 */
+  --color-bg: #FAFAF7;            /* ページの地（紙色） */
+  --color-bg-sub: #F1F1EC;        /* フォームの帯、注記の箱 */
+  --color-ink: #0F0F10;           /* 見出し、主要な文字、太い罫線 */
+  --color-text: #2E2F33;          /* 本文 */
+  --color-text-article: #1E1F22;  /* 記事・ポリシーの本文 */
+  --color-muted: #55565A;         /* 補足、ラベル、パンくず（地に対して約7:1） */
+  --color-line: #DADAD4;          /* 細い罫線 */
+  --color-line-strong: #0F0F10;   /* 区切りの太い罫線（1px、色が濃い） */
+  --color-separator: #B5B5AF;     /* 「／」などの区切り記号（装飾のみ） */
+  --color-tag-bg: #E6E6E1;        /* 「Japanese」タグの地 */
+
+  /* アクセント（衝動の一点） */
+  --color-accent: #2440D6;        /* コバルトブルー。点、主ボタン、募集の帯 */
+  --color-accent-hover: #1C34B5;  /* 主ボタンのホバー（デザインにないため追加） */
+  --color-on-accent: #FFFFFF;
+  --color-on-accent-muted: #E3E7FF;  /* 青い帯の上のラベル */
+  --color-on-accent-soft: #F2F4FF;   /* 青い帯の上の本文 */
+  --color-accent-line: #8C9BEA;      /* 青い帯の上の罫線 */
+
+  /* 黒い帯 */
+  --color-dark-bg: #0F0F10;
+  --color-dark-text: #FAFAF7;
+  --color-dark-body: #DADAD6;
+  --color-dark-muted: #A7A8AC;
+  --color-dark-line: #3A3A3E;
+
+  /* エラー（デザインにないため追加。--color-bg-sub の上で約5.8:1） */
+  --color-error: #B3261E;
+
+  /* フォーカス（デザインにないため追加） */
+  --focus-ring: 2px solid var(--color-accent);
+  --focus-ring-on-dark: 2px solid #FFFFFF;
+  --focus-offset: 3px;
+
+  /* ---------- 書体 ---------- */
+  --font-display: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-body: 'Zen Kaku Gothic Antique', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* ---------- 文字サイズ ----------
+   * 1440pxで参照と同じ値になり、390pxで右の最小値まで縮む。
+   * 対応表は docs/design-system.md「3. 文字」。 */
+  /* 明朝（見出し） */
+  --fs-wordmark-xl: clamp(120px, 16.7vw, 240px);   /* 240 フッターの「衝動」 */
+  --fs-wordmark-lg: clamp(110px, 15.3vw, 220px);   /* 220 会社情報の「衝動」 */
+  --fs-hero: clamp(64px, 12.8vw, 184px);           /* 184 トップ見出し（日本語） */
+  --fs-hero-en: clamp(44px, 10vw, 144px);          /* 144 トップ見出し（英語） */
+  --fs-page-title: clamp(48px, 7.23vw, 104px);      /* 104 下層ページのH1 */
+  --fs-policy-title-en: clamp(36px, 6.7vw, 96px);  /*  96 ポリシーのH1（英語） */
+  --fs-policy-title: clamp(32px, 6.12vw, 88px);     /*  88 ポリシーのH1（日本語） */
+  --fs-statement: clamp(42px, 6.12vw, 88px);        /*  88 黒い帯の一文（日本語） */
+  --fs-band-title: clamp(44px, 5.6vw, 80px);       /*  80 製品一覧の黒い帯の製品名 */
+  --fs-statement-en: clamp(34px, 5vw, 72px);       /*  72 黒い帯の一文（英語） */
+  --fs-product-code: clamp(40px, 5vw, 72px);       /*  72 CAASM などの製品コード */
+  --fs-numeral: clamp(36px, 4.45vw, 64px);         /*  64 一・二・三 */
+  --fs-article-title: clamp(32px, 4.17vw, 60px);   /*  60 記事のH1 */
+  --fs-h2-lg: clamp(34px, 3.9vw, 56px);            /*  56 大きめのセクション見出し */
+  --fs-h2: clamp(32px, 3.62vw, 52px);               /*  52 セクション見出し */
+  --fs-cta: clamp(30px, 3.33vw, 48px);             /*  48 募集の帯の見出し */
+  --fs-h2-md: clamp(30px, 3.06vw, 44px);           /*  44 英語の長い見出し、製品一覧の見出し */
+  --fs-h2-sm: clamp(28px, 2.78vw, 40px);           /*  40 小さめの見出し、H1の下の一文 */
+  --fs-h3-lg: clamp(26px, 2.5vw, 36px);            /*  36 機能名、2つの募集 */
+  --fs-h3-feature: clamp(26px, 2.36vw, 34px);      /*  34 3列の機能名 */
+  --fs-list-title: clamp(22px, 2.22vw, 32px);      /*  32 記事一覧のタイトル */
+  --fs-h3: clamp(22px, 2.08vw, 30px);              /*  30 番号付きの行、記事のH2 */
+  --fs-h4: clamp(22px, 1.95vw, 28px);              /*  28 小見出し、手順の数字 */
+  --fs-h3-sm: clamp(20px, 1.81vw, 26px);           /*  26 記事カード、ポリシーのH2 */
+  --fs-emph: clamp(20px, 1.67vw, 24px);            /*  24 比較表の強調、スマホメニュー */
+  --fs-h5: clamp(18px, 1.53vw, 22px);              /*  22 設計方針の項目名、流れの図 */
+  --fs-row-head: clamp(18px, 1.39vw, 20px);        /*  20 表の行見出し */
+  /* ゴシック（本文とUI） */
+  --fs-lead-en: clamp(16px, 1.32vw, 19px);         /*  19 英語トップのリード */
+  --fs-lead: clamp(16px, 1.25vw, 18px);            /*  18 リード */
+  --fs-body-lg: clamp(15px, 1.18vw, 17px);         /*  17 本文 */
+  --fs-body: 16px;
+  --fs-body-sm: 15px;
+  --fs-small: 14px;
+  --fs-caption: 13px;
+  --fs-label: 12px;
+  --fs-tag-sm: 11px;                               /* スマホのタグ */
+  --fs-micro: 10px;                                /* スマホの「SHODO」 */
+
+  --lh-display: 1.1;
+  --lh-heading-ja: 1.45;
+  --lh-heading-en: 1.3;
+  --lh-body-ja: 2;
+  --lh-body-en: 1.8;
+  --lh-article-ja: 2.1;
+
+  --ls-label: 0.12em;   /* 小さなラベル */
+  --ls-nav-ja: 0.08em;
+  --ls-wordmark: 0.3em; /* 「SHODO」 */
+
+  /* ---------- 余白 ---------- */
+  --container: 1200px;              /* 本文の最大幅 */
+  --gutter: clamp(20px, calc(9.52vw - 17px), 120px); /* 左右の余白（390px:20 / 1440px:120） */
+  --section-y: clamp(80px, 10vw, 144px); /* セクションの上下 */
+  --section-y-sm: clamp(72px, 8.3vw, 120px); /* 青い帯・記事一覧など */
+  --article-width: 720px;           /* 記事・ポリシー本文の幅 */
+  --toc-width: 240px;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-72: 72px;
+  --space-80: 80px;
+  --space-120: 120px;
+
+  /* ---------- 形 ---------- */
+  --border-hair: 1px solid var(--color-line);
+  --border-strong: 1px solid var(--color-line-strong);
+  --radius-pill: 999px;   /* ボタンとタグ。角丸はこれだけ。カードや箱は角を丸めない */
+  --button-height: 60px;
+  --button-height-sm: 56px;
+  --tap-min: 44px;
+
+  /* ---------- モチーフ（罫線と一点） ---------- */
+  --dot-size: clamp(24px, 2.5vw, 36px);
+  --dot-size-sm: 28px;   /* 下層ページのH1下 */
+  --dot-position: 63%;   /* コンテナ幅に対する位置（1200pxで760px）。スマホは 56% */
+}

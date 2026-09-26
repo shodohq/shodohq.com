@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>記事：強化法の届出対象の洗い出し</title>
+<!-- Design reference exported from Claude Design. Visual source of truth only: rebuild with components and design/tokens.css, do not copy inline styles. -->
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFAF7}
+a{color:#0F0F10}a:hover{color:#2440D6}
+</style>
+</head>
+<body>
+<div style="margin: 0 auto; width: 1440px; display: flex; flex-direction: column; background: #FAFAF7; color: #0F0F10; font-family: 'Zen Kaku Gothic Antique', 'Hiragino Sans', 'Yu Gothic', sans-serif">
+
+<header style="height: 96px; flex-shrink: 0; box-sizing: border-box; padding: 0 120px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #DADAD4">
+<a href="ja-top.html" style="display: flex; align-items: baseline; gap: 14px; text-decoration: none">
+<span style="font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 800; letter-spacing: 0.04em">衝動</span>
+<span style="font-size: 11px; letter-spacing: 0.3em; color: #55565A">SHODO</span>
+</a>
+<nav aria-label="メイン" style="display: flex; align-items: center; gap: 36px; font-size: 14px; letter-spacing: 0.08em">
+<a href="ja-products.html" style="text-decoration: none">製品</a>
+<a href="ja-poc.html" style="text-decoration: none">PoC募集</a>
+<a href="ja-articles.html" aria-current="page" style="font-weight: 700; text-decoration: underline; text-underline-offset: 8px">記事</a>
+<a href="ja-company.html" style="text-decoration: none">会社情報</a>
+<a href="ja-contact.html" style="text-decoration: none">お問い合わせ</a>
+<span style="display: flex; gap: 8px; color: #55565A"><span style="color: #0F0F10; font-weight: 700">JA</span><span>/</span><a href="en-articles.html" style="text-decoration: none; color: #55565A">EN</a></span>
+</nav>
+</header>
+
+<section style="padding: 72px 120px 0; display: flex; flex-direction: column; gap: 32px">
+<nav aria-label="パンくずリスト" style="display: flex; gap: 12px; font-size: 13px; color: #55565A">
+<a href="ja-top.html" style="color: #55565A; text-decoration: none">トップ</a><span aria-hidden="true">／</span><a href="ja-articles.html" style="color: #55565A; text-decoration: none">記事</a><span aria-hidden="true">／</span><span style="color: #0F0F10">制度</span>
+</nav>
+<div style="display: flex; gap: 20px; font-size: 14px; color: #55565A">
+<span>2026.10.01</span>
+<span>制度</span>
+<span>5分で読めます</span>
+</div>
+<h1 style="margin: 0; max-width: 1000px; font-family: 'Shippori Mincho B1', serif; font-weight: 700; font-size: 60px; line-height: 1.5">サイバー対処能力強化法の届出対象を、どう洗い出すか</h1>
+<p style="margin: 0; max-width: 880px; font-size: 18px; line-height: 2; color: #2E2F33; text-wrap: pretty">2026年10月1日、サイバー対処能力強化法が施行されました。基幹インフラ事業者は、攻撃を受けると重要な設備が止まるおそれのあるコンピューターを、政府に届け出ることになります。この記事では、届出の対象をどう洗い出すかを、手順に沿って整理します。</p>
+<div aria-hidden="true" style="position: relative; height: 40px; display: flex; align-items: center; margin-top: 24px">
+<span style="flex-grow: 1; height: 1px; background: #0F0F10"></span>
+<span style="position: absolute; left: 760px; top: 6px; width: 28px; height: 28px; border-radius: 50%; background: #2440D6"></span>
+</div>
+</section>
+
+<section style="padding: 72px 120px 144px; display: grid; grid-template-columns: 240px 720px; gap: 120px; align-items: start">
+<nav aria-label="目次" style="display: flex; flex-direction: column; gap: 16px; font-size: 14px; line-height: 1.7">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em">目次</span>
+<a href="#s1" style="text-decoration: none; color: #2E2F33">施行で何が求められるか</a>
+<a href="#s2" style="text-decoration: none; color: #2E2F33">届出の期限</a>
+<a href="#s3" style="text-decoration: none; color: #2E2F33">届出対象を洗い出す3つの手順</a>
+<a href="#s4" style="text-decoration: none; color: #2E2F33">委託先の情報もそろえる</a>
+<a href="#s5" style="text-decoration: none; color: #2E2F33">まとめ</a>
+</nav>
+<article style="display: flex; flex-direction: column; gap: 24px; font-size: 17px; line-height: 2.1; color: #1E1F22">
+<div style="padding: 28px 0; border-top: 1px solid #0F0F10; border-bottom: 1px solid #0F0F10; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 14px; font-weight: 700">この記事の要点</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.9">
+<li style="display: grid; grid-template-columns: 20px minmax(0, 1fr)"><span aria-hidden="true" style="width: 6px; height: 6px; margin-top: 13px; border-radius: 50%; background: #2440D6"></span><span>2026年10月1日、サイバー対処能力強化法が施行されました。</span></li>
+<li style="display: grid; grid-template-columns: 20px minmax(0, 1fr)"><span aria-hidden="true" style="width: 6px; height: 6px; margin-top: 13px; border-radius: 50%; background: #2440D6"></span><span>基幹インフラ事業者は「特定重要電子計算機」を政府に届け出ます。</span></li>
+<li style="display: grid; grid-template-columns: 20px minmax(0, 1fr)"><span aria-hidden="true" style="width: 6px; height: 6px; margin-top: 13px; border-radius: 50%; background: #2440D6"></span><span>届出には、製品名・型式に加えて、委託先の情報も含まれます。</span></li>
+</ul>
+</div>
+<h2 id="s1" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">施行で何が求められるか</h2>
+<p style="margin: 0">サイバー対処能力強化法のもとで、基幹インフラ事業者は「特定重要電子計算機」を政府に届け出ます。特定重要電子計算機とは、攻撃を受けると特定重要設備の機能が停止・低下するおそれのあるコンピューターのことです。</p>
+<p style="margin: 0">届け出る内容は、製品名や型式だけではありません。導入・運用・保守を担う委託先の情報も含まれます。自社の台帳だけでなく、委託先との契約や保守の経路まで把握しておく必要があります。</p>
+<h2 id="s2" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">届出の期限</h2>
+<p style="margin: 0">2026年7月の制度解説案では、届出の期限は次のように示されています。</p>
+<table style="width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.8">
+<thead>
+<tr>
+<th scope="col" style="text-align: left; padding: 12px 0; border-top: 1px solid #0F0F10; border-bottom: 1px solid #0F0F10; font-size: 13px; font-weight: 500; color: #55565A">対象</th>
+<th scope="col" style="text-align: left; padding: 12px 0; border-top: 1px solid #0F0F10; border-bottom: 1px solid #0F0F10; font-size: 13px; font-weight: 500; color: #55565A">期限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding: 16px 24px 16px 0; border-bottom: 1px solid #DADAD4">施行時に導入済みの機器</td>
+<td style="padding: 16px 0; border-bottom: 1px solid #DADAD4; font-weight: 700">2027年3月31日まで</td>
+</tr>
+<tr>
+<td style="padding: 16px 24px 16px 0; border-bottom: 1px solid #DADAD4">施行後に新しく導入する機器</td>
+<td style="padding: 16px 0; border-bottom: 1px solid #DADAD4; font-weight: 700">原則として、導入日から4か月以内</td>
+</tr>
+</tbody>
+</table>
+<p style="margin: 0; font-size: 14px; line-height: 1.9; color: #55565A">※ 制度解説案の段階の情報です。最新の政省令と様式を必ずご確認ください。</p>
+<h2 id="s3" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">届出対象を洗い出す3つの手順</h2>
+<p style="margin: 0">届出の対象は、機器の一覧から探すよりも、止まると困る設備から逆にたどるほうが、漏れを減らせます。次の3つの手順で進めます。</p>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid #DADAD4">
+<li style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 20px 0; border-bottom: 1px solid #DADAD4"><span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 500; line-height: 1.4">一</span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 700; line-height: 1.6">特定重要設備を書き出す</span><span style="font-size: 15px; line-height: 1.9">まず、自社の特定重要設備を書き出します。経済安全保障推進法の基幹インフラ制度ですでに整理している一覧があれば、それが出発点になります。</span></span></li>
+<li style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 20px 0; border-bottom: 1px solid #DADAD4"><span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 500; line-height: 1.4">二</span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 700; line-height: 1.6">設備につながるシステムと、接続の経路をたどる</span><span style="font-size: 15px; line-height: 1.9">次に、それぞれの設備の機能を支えているコンピューターを洗い出します。資産台帳とネットワーク構成図を突き合わせ、設備までつながる接続の経路を一つずつたどって、届出の対象になりうる候補を挙げます。</span></span></li>
+<li style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 20px 0; border-bottom: 1px solid #DADAD4"><span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 500; line-height: 1.4">三</span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 700; line-height: 1.6">委託先と保守の経路を突き合わせる</span><span style="font-size: 15px; line-height: 1.9">最後に、候補のコンピューターごとに、導入・運用・保守を担う委託先を確認します。契約書、委託先一覧、VPNなどのリモートアクセスの申請を突き合わせると、台帳に載っていない保守回線や、使われていないアカウントが見つかることがあります。</span></span></li>
+</ol>
+<h2 id="s4" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">委託先の情報もそろえる</h2>
+<p style="margin: 0">委託先の情報は、契約書、委託先一覧、アカウントの管理台帳など、複数の書類に分かれて管理されていることが多く、書類同士で内容が食い違うこともあります。届出の準備をきっかけに、委託先ごとに「どの機器に、どの経路で、どのアカウントで入れるのか」を一つの表にまとめておくと、その後の変更の届出や、インシデントの調査にも使えます。</p>
+<h2 id="s5" style="margin: 40px 0 0; font-family: 'Shippori Mincho B1', serif; font-size: 30px; font-weight: 700; line-height: 1.6">まとめ</h2>
+<p style="margin: 0">届出対象の洗い出しは、止まると困る設備から逆にたどることで、漏れを減らせます。設備、コンピューター、接続の経路、委託先の順に確認し、書類同士の食い違いをその場で解消しておくことが大切です。施行時に導入済みの機器の届出期限は、制度解説案では2027年3月31日とされています。早めに着手しておくと、変更の届出にも落ち着いて対応できます。</p>
+<div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #DADAD4; display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 1.8; color: #55565A">
+<span style="font-weight: 700; color: #0F0F10">出典</span>
+<span>「能動的サイバー防御」で組織は何に備えるべきか（トレンドマイクロ、2026年8月14日）</span>
+<span>重要インフラ対策関連（国家サイバー統括室）</span>
+</div>
+</article>
+</section>
+
+<section style="padding: 128px 120px; border-top: 1px solid #DADAD4; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-family: 'Shippori Mincho B1', serif; font-weight: 700; font-size: 36px">次に読む</h2>
+<a href="ja-articles.html" style="font-size: 15px; font-weight: 500; text-underline-offset: 6px">すべての記事</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+<a href="ja-article-2.html" style="display: flex; flex-direction: column; gap: 16px; padding-top: 24px; border-top: 1px solid #0F0F10; text-decoration: none">
+<span style="display: flex; gap: 12px; font-size: 13px; color: #55565A"><span>2026.10.01</span><span>考え方</span></span>
+<span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 700; line-height: 1.55">「全部止める」以外の選択肢をつくる</span>
+</a>
+<a href="ja-article-3.html" style="display: flex; flex-direction: column; gap: 16px; padding-top: 24px; border-top: 1px solid #0F0F10; text-decoration: none">
+<span style="display: flex; gap: 12px; font-size: 13px; color: #55565A"><span>2026.10.01</span><span>復旧</span></span>
+<span style="font-family: 'Shippori Mincho B1', serif; font-size: 26px; font-weight: 700; line-height: 1.55">そのバックアップは、本当に戻せるか</span>
+</a>
+</div>
+</section>
+
+<section style="background: #2440D6; color: #FFFFFF; padding: 120px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 80px; align-items: end">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span style="font-size: 14px; letter-spacing: 0.12em; color: #E3E7FF">デザインパートナー募集</span>
+<p style="margin: 0; font-family: 'Shippori Mincho B1', serif; font-weight: 700; font-size: 48px; line-height: 1.45">届出対象の洗い出しを、<br>一緒に試してみませんか。</p>
+<p style="margin: 0; font-size: 16px; line-height: 2; color: #F2F4FF">開発中のPixie for Operationsは、手元の台帳や構成図から、届出対象の候補とその根拠を示すことを目指しています。</p>
+</div>
+<a href="ja-poc.html" style="height: 60px; padding: 0 32px; display: inline-flex; align-items: center; gap: 12px; background: #FFFFFF; color: #0F0F10; text-decoration: none; font-weight: 700; font-size: 16px; border-radius: 30px">デザインパートナーに応募する<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.6"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></a>
+</section>
+
+<footer style="flex-grow: 1; border-top: 1px solid #0F0F10; padding: 96px 120px 56px; display: flex; flex-direction: column; justify-content: space-between; gap: 64px">
+<div style="display: grid; grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); gap: 48px">
+<address style="font-style: normal; font-size: 14px; line-height: 2; color: #2E2F33">株式会社衝動<br>〒965-0003 福島県会津若松市一箕町大字八幡 墓料107番地1<br>設立　2025年5月1日<br>法人番号　<a href="https://www.houjin-bangou.nta.go.jp/henkorireki-johoto.html?selHouzinNo=3011001169688">3011001169688</a></address>
+<nav aria-label="サイト" style="display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span style="font-size: 12px; letter-spacing: 0.14em; color: #55565A">サイト</span>
+<a href="ja-top.html" style="text-decoration: none">トップ</a>
+<a href="ja-poc.html" style="text-decoration: none">PoC募集</a>
+<a href="ja-articles.html" style="text-decoration: none">記事</a>
+<a href="ja-company.html" style="text-decoration: none">会社情報</a>
+<a href="ja-contact.html" style="text-decoration: none">お問い合わせ</a>
+</nav>
+<nav aria-label="製品" style="display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span style="font-size: 12px; letter-spacing: 0.14em; color: #55565A">製品</span>
+<a href="ja-products.html#caasm" style="text-decoration: none">Pixie CAASM</a>
+<a href="ja-products.html#easm" style="text-decoration: none">Pixie EASM</a>
+<a href="ja-products.html#iasm" style="text-decoration: none">Pixie IASM</a>
+<a href="ja-products.html#aspm" style="text-decoration: none">Pixie ASPM</a>
+<a href="ja-pixie-for-operations.html" style="text-decoration: none">Pixie for Operations</a>
+</nav>
+<nav aria-label="ポリシー" style="display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span style="font-size: 12px; letter-spacing: 0.14em; color: #55565A">ポリシー</span>
+<a href="ja-security-policy.html" style="text-decoration: none">セキュリティポリシー</a>
+<a href="ja-security-policy.html#s2" style="text-decoration: none">脆弱性の報告</a>
+<a href="ja-privacy.html" style="text-decoration: none">プライバシーポリシー</a>
+<a href="en-articles.html" style="text-decoration: none">English</a>
+</nav>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: flex-end">
+<span style="display: flex; align-items: flex-end; gap: 20px">
+<span style="font-family: 'Shippori Mincho B1', serif; font-size: 240px; font-weight: 800; line-height: 0.9; letter-spacing: 0.02em">衝動</span>
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #2440D6; margin-bottom: 12px"></span>
+</span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 13px; color: #55565A">
+<a href="security.txt" style="color: #55565A; text-decoration: none">/.well-known/security.txt</a>
+<span>© 2026 株式会社衝動</span>
+</span>
+</div>
+</footer>
+
+</div>
+</body>
+</html>
