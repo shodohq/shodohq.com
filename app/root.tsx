@@ -23,7 +23,7 @@ import type { Route } from "./+types/root";
 import { ErrorPage, errorTitle } from "./components/ErrorPage";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { siteOrigin } from "./lib/env.server";
+import { siteOrigin, turnstileSiteKey } from "./lib/env.server";
 import {
   alternatePath,
   company,
@@ -42,7 +42,11 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function loader() {
-  return { siteOrigin: siteOrigin() };
+  return {
+    siteOrigin: siteOrigin(),
+    // Turnstileを使うときだけ、フォームにサイトキーを渡す（docs/spec.md §6.5、§15.4）
+    turnstileSiteKey: turnstileSiteKey(),
+  };
 }
 
 // 移動のたびに呼び直す必要がない（docs/spec.md §11）

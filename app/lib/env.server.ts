@@ -18,3 +18,50 @@ export function siteOrigin(): string {
 export function turnstileEnabled(): boolean {
   return Boolean(env.TURNSTILE_SITE_KEY);
 }
+
+/** Turnstileのサイトキー。使わないときは null（ルートの loader から画面に渡す。§15.4） */
+export function turnstileSiteKey(): string | null {
+  return env.TURNSTILE_SITE_KEY || null;
+}
+
+/**
+ * 秘密の値（wrangler secret put で設定する。§15.4）。
+ * どれも、置かれていない環境がある（手元、プレビュー、Turnstileを使わない場合）ので、なくてもよい形で読む。
+ * 型は .dev.vars からの推測に頼らず、ここで決める（.dev.vars のないCIでも型チェックが通るように。§15.3）
+ */
+type Secrets = {
+  SLACK_WEBHOOK_URL?: string;
+  SLACK_WEBHOOK_URL_SECURITY?: string;
+  SLACK_WEBHOOK_URL_PREVIEW?: string;
+  TURNSTILE_SECRET_KEY?: string;
+};
+
+const secrets = env as Secrets;
+
+/**
+ * フォームの投稿先のWebhook URL（§6.5）。
+ * 本番は SLACK_WEBHOOK_URL（脆弱性の報告は、SLACK_WEBHOOK_URL_SECURITY があればそちら）。
+ * 本番以外（プレビューと手元）は、テスト用の SLACK_WEBHOOK_URL_PREVIEW だけ。本番のチャンネルには送らない
+ */
+export function slackWebhookUrl({
+  production,
+  vulnerability,
+}: {
+  production: boolean;
+  vulnerability: boolean;
+}): string | undefined {
+  if (!production) return secrets.SLACK_WEBHOOK_URL_PREVIEW || undefined;
+  if (vulnerability && secrets.SLACK_WEBHOOK_URL_SECURITY)
+    return secrets.SLACK_WEBHOOK_URL_SECURITY;
+  return secrets.SLACK_WEBHOOK_URL || undefined;
+}
+
+/** Turnstileの秘密鍵。使わないときは undefined */
+export function turnstileSecretKey(): string | undefined {
+  return secrets.TURNSTILE_SECRET_KEY || undefined;
+}
+
+/** 連続送信の制限（IPアドレスごとに60秒に5回まで。wrangler.jsonc の ratelimits） */
+export function inquiryLimiter(): RateLimit {
+  return env.INQUIRY_LIMITER;
+}

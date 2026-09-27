@@ -19,6 +19,11 @@ button.button {
   cursor: pointer;
 }
 
+/* 送っている間。色は変えず、押せないことだけを示す */
+button.button:disabled {
+  cursor: progress;
+}
+
 .icon {
   flex-shrink: 0;
 }

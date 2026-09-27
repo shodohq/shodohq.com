@@ -7,6 +7,7 @@ import { PageHeader, PageTitle } from "~/components/PageHeader";
 import { RuleDot } from "~/components/RuleDot";
 import { Tag } from "~/components/Tag";
 import { cx } from "~/lib/cx";
+import { handleInquiry } from "~/lib/inquiry.server";
 import {
   breadcrumbJsonLd,
   type Lang,
@@ -232,6 +233,11 @@ const copy: Record<Lang, Copy> = {
   },
 };
 
+/** フォームはこのページのURLに送り、ここで受ける（docs/spec.md §6.5）。フォーム専用のAPIは作らない */
+export async function action({ request }: Route.ActionArgs) {
+  return handleInquiry(request, "poc");
+}
+
 export function meta({ matches, location }: Route.MetaArgs) {
   const lang = langFromPath(location.pathname);
   const t = copy[lang];
@@ -247,7 +253,7 @@ export function meta({ matches, location }: Route.MetaArgs) {
 }
 
 /** PoC・デザインパートナー募集（参照 ja-poc.html、en-poc.html） */
-export default function Poc() {
+export default function Poc({ actionData }: Route.ComponentProps) {
   const lang = useLang();
   const t = copy[lang];
 
@@ -366,6 +372,7 @@ export default function Poc() {
         <InquiryForm
           lang={lang}
           form="poc"
+          result={actionData}
         />
       </section>
     </>

@@ -13,6 +13,8 @@ type ButtonProps = {
   /** 右の矢印。ページ内の下へ移るボタンは下矢印。スマホのメニューの中のボタンだけ付けない */
   icon?: "arrow" | "arrowDown" | false;
   onClick?: () => void;
+  /** 送信のボタンだけ。送っている間は押せないようにする（二重に送らないため） */
+  disabled?: boolean;
   className?: string;
 };
 
@@ -26,6 +28,7 @@ export function Button({
   variant = "primary",
   icon = "arrow",
   onClick,
+  disabled,
   className,
 }: ButtonProps) {
   const classes = cx(styles.button, styles[variant], className);
@@ -46,6 +49,7 @@ export function Button({
       <button
         type="submit"
         onClick={onClick}
+        disabled={disabled}
         className={classes}
       >
         {content}

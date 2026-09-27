@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { InquiryForm } from "~/components/InquiryForm";
 import { PageHeader, PageTitle } from "~/components/PageHeader";
 import { RuleDot } from "~/components/RuleDot";
+import { handleInquiry } from "~/lib/inquiry.server";
 import {
   breadcrumbJsonLd,
   type Lang,
@@ -94,6 +95,11 @@ const copy: Record<Lang, Copy> = {
   },
 };
 
+/** フォームはこのページのURLに送り、ここで受ける（docs/spec.md §6.5）。フォーム専用のAPIは作らない */
+export async function action({ request }: Route.ActionArgs) {
+  return handleInquiry(request, "contact");
+}
+
 export function meta({ matches, location }: Route.MetaArgs) {
   const lang = langFromPath(location.pathname);
   const t = copy[lang];
@@ -109,7 +115,7 @@ export function meta({ matches, location }: Route.MetaArgs) {
 }
 
 /** お問い合わせ（参照 ja-contact.html、en-contact.html） */
-export default function Contact() {
+export default function Contact({ actionData }: Route.ComponentProps) {
   const lang = useLang();
   const t = copy[lang];
   const links: Links = {
@@ -144,6 +150,7 @@ export default function Contact() {
         <InquiryForm
           lang={lang}
           form="contact"
+          result={actionData}
         />
       </section>
     </>

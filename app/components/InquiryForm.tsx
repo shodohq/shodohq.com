@@ -1,9 +1,25 @@
-import { Link } from "react-router";
+import { type FormEvent, useEffect, useRef, useState } from "react";
+import { Link, useFetcher, useRouteLoaderData } from "react-router";
+import { trackInquirySubmit } from "~/lib/analytics";
+import { cx } from "~/lib/cx";
+import {
+  failureMessage,
+  firstErrorField,
+  type InquiryErrors,
+  type InquiryField,
+  type InquiryFormName,
+  type InquiryResult,
+  type InquiryValues,
+  readInquiry,
+  validateInquiry,
+} from "~/lib/inquiry";
 import { type Lang, localizePath, paths } from "~/lib/site";
+import type { loader as rootLoader } from "~/root";
 import { Button } from "./Button";
+import { FieldError } from "./FieldError";
 import styles from "./InquiryForm.module.css";
-
-type FormName = "poc" | "contact";
+import { TextLink } from "./TextLink";
+import { Turnstile } from "./Turnstile";
 
 type Choice = { value: string; label: string };
 
@@ -36,7 +52,7 @@ const productChoices: Choice[] = [
  * 項目と文言（docs/spec.md §6.1、§6.2。選択肢の文言は参照 ja-poc.html、ja-contact.html、en-poc.html、en-contact.html）。
  * メッセージの「（任意）」「(optional)」は、参照にないものを足している（§6.1）
  */
-const forms: Record<Lang, Record<FormName, FormSpec>> = {
+const forms: Record<Lang, Record<InquiryFormName, FormSpec>> = {
   ja: {
     poc: {
       kind: {
@@ -144,17 +160,144 @@ const forms: Record<Lang, Record<FormName, FormSpec>> = {
   },
 };
 
+/** 送信したあとの文言（docs/spec.md §6.4） */
+const sentCopy = {
+  ja: {
+    normal: {
+      heading: "送信しました",
+      body: "お問い合わせありがとうございます。内容を確認のうえ、3営業日以内にご返信します。",
+    },
+    vuln: {
+      heading: "送信しました",
+      body: "報告ありがとうございます。受け取ったことを、3営業日以内にご連絡します。",
+    },
+    home: "トップに戻る",
+  },
+  en: {
+    normal: {
+      heading: "Thank you. Your message has been sent.",
+      body: "We will reply within three business days.",
+    },
+    vuln: {
+      heading: "Thank you for your report.",
+      body: "We will confirm receipt within three business days.",
+    },
+    home: "Back to home",
+  },
+} as const;
+
+/** Turnstileを使うときの、JavaScriptが動かない環境への案内（§6.5） */
+const noscriptCopy = {
+  ja: "このフォームを送信するには、JavaScriptを有効にしてください。脆弱性の報告は、security@shodohq.com でも受け付けています。",
+  en: "Please enable JavaScript to send this form. You can also report vulnerabilities to security@shodohq.com.",
+} as const;
+
+type InquiryFormProps = {
+  lang: Lang;
+  form: InquiryFormName;
+  /**
+   * JavaScriptなしで送ったときの action の結果（useActionData）。
+   * 入力の誤りがあれば、エラーを出し、入力した値を残して描き直す（§6.4）
+   */
+  result?: InquiryResult;
+};
+
 /**
  * PoC応募とお問い合わせのフォーム（docs/spec.md §6）。
- * いまは見た目と項目だけ。送信の処理（action、入力の確認、Slackへの投稿）はフォームの段階で足す
+ *
+ * JavaScriptが動くときは、useFetcher でページを移動せずに送り、結果でフォームの場所を切り替える。
+ * JavaScriptが動かないときは、ふつうの <form> としてページのURLに送られる（action は各ルート）
  */
-export function InquiryForm({ lang, form }: { lang: Lang; form: FormName }) {
+export function InquiryForm({ lang, form, result }: InquiryFormProps) {
   const spec = forms[lang][form];
+  const fetcher = useFetcher<InquiryResult>();
+  const turnstileSiteKey = useRouteLoaderData<typeof rootLoader>("root")?.turnstileSiteKey ?? null;
   const id = (name: string) => `${form}-${name}`;
 
+  // 画面が動くようになってから、JavaScriptで送ったことを示す隠し項目を足す（§6.5）
+  const [enhanced, setEnhanced] = useState(false);
+  useEffect(() => {
+    setEnhanced(true);
+  }, []);
+
+  // 送る前の確認で見つけたエラー。送ったあとは、サーバーの結果を出す
+  const [clientErrors, setClientErrors] = useState<InquiryErrors | null>(null);
+  const response = fetcher.data ?? result;
+  const serverErrors = response && !response.ok && "errors" in response ? response.errors : {};
+  const errors = clientErrors ?? serverErrors;
+  const values: Partial<InquiryValues> =
+    response && !response.ok && "values" in response ? response.values : {};
+  const failed = Boolean(response && !response.ok && "error" in response);
+  const busy = fetcher.state !== "idle";
+
+  // エラーがあれば、最初のエラーの項目にフォーカスを移す（§6.3）
+  const [focusField, setFocusField] = useState<InquiryField | null>(null);
+  useEffect(() => {
+    if (!focusField) return;
+    document.getElementById(fieldId(form, focusField))?.focus();
+    setFocusField(null);
+  }, [focusField, form]);
+
+  // サーバーから入力の誤りが返ってきたとき（画面の確認をすり抜けた場合）も、同じように移す
+  useEffect(() => {
+    const data = fetcher.data;
+    if (data && !data.ok && "errors" in data) setFocusField(firstErrorField(data.errors) ?? null);
+  }, [fetcher.data]);
+
+  const sent = fetcher.data?.ok ? fetcher.data : null;
+  const sentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!sent) return;
+    // 送信の結果の文言にフォーカスを移し、Google Analyticsにイベントを送る（§6.4、§11）
+    sentRef.current?.focus();
+    trackInquirySubmit(form, sent.kind);
+  }, [sent, form]);
+
+  if (sent) {
+    const copy = sentCopy[lang];
+    const message = sent.kind === "vuln" ? copy.vuln : copy.normal;
+    return (
+      <div
+        ref={sentRef}
+        tabIndex={-1}
+        className={styles.sent}
+      >
+        <h2 className={styles.sentHeading}>{message.heading}</h2>
+        <p className={styles.sentBody}>{message.body}</p>
+        <div>
+          <TextLink to={localizePath(lang, paths.home)}>{copy.home}</TextLink>
+        </div>
+      </div>
+    );
+  }
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const found = validateInquiry(form, lang, readInquiry(new FormData(event.currentTarget)));
+    const first = firstErrorField(found);
+    if (first) {
+      event.preventDefault();
+      setClientErrors(found);
+      setFocusField(first);
+      return;
+    }
+    setClientErrors(null);
+  };
+
+  // JavaScriptなしで描き直したページでは、最初の誤りの項目に autoFocus を付ける（§6.5）
+  const firstError = enhanced ? undefined : firstErrorField(errors);
+  const errorProps = (field: InquiryField) => ({
+    "aria-invalid": errors[field] ? true : undefined,
+    "aria-describedby": errors[field] ? id(`${field}-error`) : undefined,
+  });
+
   return (
-    <form
+    <fetcher.Form
       method="post"
+      // multipart で送る。urlencoded だと日本語は1文字9バイトになり、5000文字の本文が本文の上限（32KB）を超えるため
+      encType="multipart/form-data"
+      action={localizePath(lang, paths[form])}
+      noValidate
+      onSubmit={onSubmit}
       className={styles.form}
     >
       <input
@@ -167,6 +310,13 @@ export function InquiryForm({ lang, form }: { lang: Lang; form: FormName }) {
         name="lang"
         value={lang}
       />
+      {enhanced && (
+        <input
+          type="hidden"
+          name="enhanced"
+          value="1"
+        />
+      )}
       {/* ハニーポット。画面の外に置き、人は入力しない（§6.5） */}
       <div
         aria-hidden="true"
@@ -180,7 +330,16 @@ export function InquiryForm({ lang, form }: { lang: Lang; form: FormName }) {
         />
       </div>
 
-      <fieldset className={styles.fieldset}>
+      {turnstileSiteKey && (
+        <noscript>
+          <p className={styles.noscript}>{noscriptCopy[lang]}</p>
+        </noscript>
+      )}
+
+      <fieldset
+        className={styles.fieldset}
+        aria-describedby={errors.kind ? id("kind-error") : undefined}
+      >
         <legend className={styles.legend}>{spec.kind.legend}</legend>
         <div className={spec.kind.columns === 2 ? styles.choices2 : styles.choices1}>
           {spec.kind.choices.map((choice, index) => (
@@ -189,16 +348,24 @@ export function InquiryForm({ lang, form }: { lang: Lang; form: FormName }) {
               className={styles.choice}
             >
               <input
+                id={index === 0 ? fieldId(form, "kind") : undefined}
                 type="radio"
                 name="kind"
                 value={choice.value}
-                defaultChecked={index === 0}
+                defaultChecked={values.kind ? values.kind === choice.value : index === 0}
+                aria-invalid={errors.kind ? true : undefined}
+                // biome-ignore lint/a11y/noAutofocus: JavaScriptなしで描き直したとき、最初の誤りの項目に移す（§6.5）
+                autoFocus={index === 0 && firstError === "kind"}
                 className={styles.control}
               />
               {choice.label}
             </label>
           ))}
         </div>
+        <FieldError
+          id={id("kind-error")}
+          message={errors.kind}
+        />
       </fieldset>
 
       <div className={styles.fields}>
@@ -218,7 +385,16 @@ export function InquiryForm({ lang, form }: { lang: Lang; form: FormName }) {
               name={field.name}
               type={field.type}
               autoComplete={field.autoComplete}
+              defaultValue={values[field.name]}
+              required={isRequired(form, field.name)}
+              {...errorProps(field.name)}
+              // biome-ignore lint/a11y/noAutofocus: JavaScriptなしで描き直したとき、最初の誤りの項目に移す（§6.5）
+              autoFocus={firstError === field.name}
               className={styles.input}
+            />
+            <FieldError
+              id={id(`${field.name}-error`)}
+              message={errors[field.name]}
             />
           </div>
         ))}
@@ -237,6 +413,7 @@ export function InquiryForm({ lang, form }: { lang: Lang; form: FormName }) {
                   type="checkbox"
                   name="product"
                   value={choice.value}
+                  defaultChecked={values.product?.includes(choice.value)}
                   className={styles.control}
                 />
                 {choice.label}
@@ -258,27 +435,81 @@ export function InquiryForm({ lang, form }: { lang: Lang; form: FormName }) {
           name="message"
           rows={spec.message.rows}
           placeholder={spec.message.placeholder}
+          defaultValue={values.message}
+          required={isRequired(form, "message")}
+          {...errorProps("message")}
+          // biome-ignore lint/a11y/noAutofocus: JavaScriptなしで描き直したとき、最初の誤りの項目に移す（§6.5）
+          autoFocus={firstError === "message"}
           className={styles.textarea}
         />
+        <FieldError
+          id={id("message-error")}
+          message={errors.message}
+        />
       </div>
 
-      <label className={`${styles.choice} ${styles.agree}`}>
-        <input
-          type="checkbox"
-          name="agree"
-          className={styles.control}
+      <div className={styles.agreeField}>
+        <label className={cx(styles.choice, styles.agree)}>
+          <input
+            id={id("agree")}
+            type="checkbox"
+            name="agree"
+            defaultChecked={values.agree}
+            required
+            {...errorProps("agree")}
+            // biome-ignore lint/a11y/noAutofocus: JavaScriptなしで描き直したとき、最初の誤りの項目に移す（§6.5）
+            autoFocus={firstError === "agree"}
+            className={styles.control}
+          />
+          {/* 「プライバシーポリシー」を /privacy/ へのリンクにする（§6.1） */}
+          <span>
+            {spec.agree.before}
+            <Link to={localizePath(lang, paths.privacy)}>{spec.agree.policy}</Link>
+            {spec.agree.after}
+          </span>
+        </label>
+        <FieldError
+          id={id("agree-error")}
+          message={errors.agree}
         />
-        {/* 「プライバシーポリシー」を /privacy/ へのリンクにする（§6.1） */}
-        <span>
-          {spec.agree.before}
-          <Link to={localizePath(lang, paths.privacy)}>{spec.agree.policy}</Link>
-          {spec.agree.after}
-        </span>
-      </label>
+      </div>
+
+      {/* Turnstileは、画面が動くようになってから読み込む（サイトキーがあるときだけ。§6.5） */}
+      {turnstileSiteKey && enhanced && (
+        <Turnstile
+          siteKey={turnstileSiteKey}
+          lang={lang}
+          resetKey={fetcher.data}
+        />
+      )}
+
+      {failed && (
+        <FieldError
+          role="alert"
+          message={failureMessage(lang)}
+        />
+      )}
 
       <div>
-        <Button className={styles.submit}>{spec.submit}</Button>
+        <Button
+          disabled={busy}
+          className={styles.submit}
+        >
+          {spec.submit}
+        </Button>
       </div>
-    </form>
+    </fetcher.Form>
   );
+}
+
+/** 項目のid。種類は最初のラジオボタン（エラーのときのフォーカスの移し先） */
+function fieldId(form: InquiryFormName, field: InquiryField): string {
+  return `${form}-${field}`;
+}
+
+/** 必ず入れる項目か（読み上げで「必須」と伝えるため。確認そのものは validateInquiry で行う） */
+function isRequired(form: InquiryFormName, field: InquiryField): boolean {
+  if (field === "company" || field === "dept") return form === "poc";
+  if (field === "message") return form === "contact";
+  return field === "name" || field === "email" || field === "agree";
 }

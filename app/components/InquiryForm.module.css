@@ -134,6 +134,52 @@
   color: var(--color-muted);
 }
 
+/* 入力に誤りのある欄。文字のエラーと一緒に、線の色でも示す（色だけでは伝えない。§6.3） */
+.input[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.agreeField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Turnstileを使うときの、JavaScriptが動かない環境への案内（§6.5）。フォームの帯（--color-bg-sub）の上なので、地は --color-bg にする */
+.noscript {
+  padding: var(--space-16) var(--space-20);
+  background: var(--color-bg);
+  font-size: var(--fs-small);
+  line-height: var(--lh-180);
+  color: var(--color-text);
+}
+
+/* 送信したあとの文言（§6.4）。参照がないので、お問い合わせの案内と同じ形にする */
+.sent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding-top: var(--space-24);
+  border-top: var(--border-strong);
+}
+
+.sentHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-emph);
+  font-weight: 700;
+}
+
+.sentBody {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+}
+
+.sentBody:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
 button.submit {
   padding-inline: var(--space-40);
 }
