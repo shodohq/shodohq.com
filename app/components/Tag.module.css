@@ -1,0 +1,15 @@
+.tag {
+  display: inline-block;
+  padding: var(--space-4) var(--space-12);
+  border: var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-label);
+  white-space: nowrap;
+}
+
+@media (width < 768px) {
+  .tag {
+    padding: var(--space-3) var(--space-10);
+    font-size: var(--fs-tag-sm);
+  }
+}

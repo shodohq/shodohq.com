@@ -1,0 +1,104 @@
+.header {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding-inline: var(--page-inline);
+  border-bottom: var(--border-hair);
+}
+
+@media (width >= 1024px) {
+  .home {
+    border-bottom: none;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-14);
+  text-decoration: none;
+}
+
+.logoMark {
+  font-family: var(--font-display);
+  font-size: var(--fs-logo);
+  font-weight: 800;
+  letter-spacing: var(--ls-logo);
+}
+
+.logoSub {
+  font-size: var(--fs-logo-sub);
+  letter-spacing: var(--ls-wordmark);
+  color: var(--color-muted);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-36);
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-nav-ja);
+}
+
+.nav:lang(en) {
+  font-size: var(--fs-body-sm);
+  letter-spacing: normal;
+}
+
+.navLink {
+  text-decoration: none;
+}
+
+.navLink[aria-current="page"] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: var(--space-8);
+}
+
+.langSwitch {
+  display: flex;
+  gap: var(--space-8);
+  color: var(--color-muted);
+}
+
+.langCurrent {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.langLink {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.langLink:hover {
+  color: var(--color-accent);
+}
+
+/* 1024px未満：高さ64px、下罫線あり（トップも）、ナビはメニューボタンにまとめる（design-system.md §8） */
+@media (width < 1024px) {
+  .header {
+    height: var(--header-height-sm);
+    /* 右は、44pxのボタンの中の余白の分だけ詰める（参照は左20px、右12px） */
+    padding-inline: var(--page-inline) calc(var(--page-inline) - var(--space-8));
+  }
+
+  .logo {
+    gap: var(--space-10);
+  }
+
+  .logoMark {
+    font-size: var(--fs-logo-sm);
+  }
+
+  .logoSub {
+    font-size: var(--fs-micro);
+  }
+
+  .nav {
+    display: none;
+  }
+}

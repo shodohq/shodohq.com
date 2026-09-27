@@ -1,0 +1,70 @@
+/*
+ * 全ページに効く最小限のスタイル。
+ * 部品ごとの見た目は、各コンポーネントのCSS Modulesに書く。
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ページ内リンクはなめらかに動かす。動きを減らす設定のときは動かさない（docs/spec.md §5.3） */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* スマホのメニューを開いている間は、背景をスクロールさせない（docs/spec.md §5.1） */
+html[data-menu-open] {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ol,
+ul,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+/* リンクの色。部品のクラスで上書きできるように、詳細度を0にしてある */
+:where(a) {
+  color: var(--color-ink);
+}
+
+:where(a:hover) {
+  color: var(--color-accent);
+}
+
+/* フォーカスのリング。黒い帯と青い帯の上では、それぞれの部品で白に変える（docs/design-system.md §9） */
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* ページ内リンクの移動先に、少し余白を残す（docs/spec.md §5.3） */
+[id] {
+  scroll-margin-top: var(--space-24);
+}

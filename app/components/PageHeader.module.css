@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+  padding: var(--space-72) var(--page-inline) var(--space-112);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-page-title);
+  font-weight: 800;
+  line-height: var(--lh-page-title);
+  letter-spacing: var(--ls-display);
+}
+
+/* 下層ページのスマホの参照はないので、スマホの決まり（design-system.md §8）の値にする */
+@media (width < 768px) {
+  .header {
+    gap: var(--space-28);
+    padding: var(--space-40) var(--page-inline) var(--section-y-sm);
+  }
+}

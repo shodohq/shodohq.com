@@ -1,0 +1,175 @@
+/* ページが短いときも、フッターが画面の下まで伸びる（body は縦並びのflex） */
+.footer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  gap: var(--space-64);
+  padding: var(--space-96) var(--page-inline) var(--space-56);
+  border-top: var(--border-strong);
+}
+
+/* 会社情報 2fr、リンク 1fr × 3 */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+  gap: var(--space-48);
+}
+
+.address {
+  font-size: var(--fs-small);
+  font-style: normal;
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+}
+
+.line {
+  display: block;
+}
+
+/* リンクの3列を、外側のグリッドの列にそのまま載せる */
+.navs {
+  display: grid;
+  grid-column: 2 / -1;
+  grid-template-columns: subgrid;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+  font-size: var(--fs-small);
+}
+
+.navHeading {
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-muted);
+}
+
+.navHeading:lang(en) {
+  text-transform: uppercase;
+}
+
+.navLink {
+  text-decoration: none;
+}
+
+.navLink[aria-current="page"] {
+  font-weight: 700;
+}
+
+.bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.wordmark {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-20);
+}
+
+.wordmarkText {
+  font-family: var(--font-display);
+  font-size: var(--fs-wordmark-xl);
+  font-weight: 800;
+  line-height: var(--lh-wordmark);
+  letter-spacing: var(--ls-display);
+}
+
+.wordmarkDot {
+  flex-shrink: 0;
+  width: var(--dot-size-footer);
+  height: var(--dot-size-footer);
+  margin-bottom: var(--space-12);
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-8);
+  font-size: var(--fs-caption);
+  color: var(--color-muted);
+}
+
+.metaLink {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.metaLink:hover {
+  color: var(--color-accent);
+}
+
+/* 1024px未満：会社情報を上に置き、リンクは2列（spec.md §3.2） */
+@media (width < 1024px) {
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-40);
+  }
+
+  .navs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-32) var(--space-24);
+  }
+
+  .nav {
+    gap: 0;
+  }
+
+  .navHeading {
+    padding-bottom: var(--space-4);
+  }
+
+  .navLink {
+    display: flex;
+    align-items: center;
+    min-height: var(--space-36);
+  }
+}
+
+@media (width < 768px) {
+  .footer {
+    gap: var(--space-48);
+    padding: var(--space-56) var(--page-inline) var(--space-40);
+  }
+
+  .address {
+    font-size: var(--fs-caption);
+  }
+
+  /* 郵便番号のあとで改行する（参照 ja-top-mobile.html） */
+  .street {
+    display: block;
+  }
+
+  .navHeading {
+    font-size: var(--fs-tag-sm);
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-20);
+  }
+
+  .wordmark {
+    gap: var(--space-12);
+  }
+
+  .wordmarkDot {
+    margin-bottom: var(--space-6);
+  }
+
+  .meta {
+    align-items: flex-start;
+    gap: var(--space-6);
+    font-size: var(--fs-label);
+  }
+}

@@ -12,6 +12,8 @@
     "postinstall": "wrangler types"
   },
   "dependencies": {
+    "@fontsource/shippori-mincho-b1": "5.3.0",
+    "@fontsource/zen-kaku-gothic-antique": "5.3.0",
     "isbot": "5.2.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
@@ -21,12 +23,21 @@
     "@biomejs/biome": "2.5.14",
     "@cloudflare/vite-plugin": "1.60.2",
     "@react-router/dev": "8.4.0",
+    "@types/hast": "3.0.5",
     "@types/node": "24.19.0",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "gray-matter": "4.0.3",
+    "rehype-raw": "7.0.0",
+    "rehype-stringify": "10.0.1",
+    "remark-gfm": "4.0.1",
+    "remark-parse": "11.0.0",
+    "remark-rehype": "11.1.2",
     "typescript": "5.9.3",
+    "unified": "11.0.5",
     "vite": "8.3.1",
-    "wrangler": "4.141.0"
+    "wrangler": "4.141.0",
+    "zod": "4.6.5"
   },
   "allowScripts": {
     "esbuild": false,

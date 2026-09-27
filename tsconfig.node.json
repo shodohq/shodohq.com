@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["vite.config.ts"],
+  "include": ["vite.config.ts", "vite-plugins/**/*", "app/lib/content-schema.ts"],
   "compilerOptions": {
     "composite": true,
     "strict": true,
@@ -8,6 +8,8 @@
     "lib": ["ES2022"],
     "target": "ES2022",
     "module": "ES2022",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    // Viteの設定ファイルの読み込みは、拡張子のないimportを警告するため
+    "allowImportingTsExtensions": true
   }
 }

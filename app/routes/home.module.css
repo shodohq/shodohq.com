@@ -1,0 +1,691 @@
+/*
+ * トップ（参照 ja-top.html、ja-top-mobile.html）
+ * 1440px の値を基本に書き、下の @media で 1024〜1439px、768〜1023px、767px以下の順に組み替える
+ * （docs/design-system.md §8）。列の幅は design-system.md §4 の型の値。
+ */
+
+/* ---------------------------------------------------------------- ヒーロー */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-64) var(--page-inline) var(--section-y-sm);
+}
+
+.heroLabel {
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-muted);
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-40);
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-hero);
+}
+
+.heroTitleEnd {
+  align-self: flex-end;
+}
+
+.heroFoot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-80);
+  align-items: end;
+  margin-top: var(--space-80);
+}
+
+.heroLead {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-32);
+}
+
+/* ---------------------------------------------------------------- 黒い帯 */
+
+.statement {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-80);
+  align-items: end;
+  padding: var(--section-y) var(--page-inline);
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text);
+}
+
+.statementText {
+  font-family: var(--font-display);
+  font-size: var(--fs-statement);
+  font-weight: 700;
+  line-height: var(--lh-statement);
+}
+
+.statementNote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.statementLabel {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-dark-muted);
+}
+
+.statementBody {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-ja);
+  color: var(--color-dark-body);
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- セクションの共通 */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-72);
+  padding: var(--section-y) var(--page-inline);
+}
+
+.ruled {
+  border-top: var(--border-hair);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-heading-ja);
+}
+
+.headingLg {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2-lg);
+  font-weight: 700;
+  line-height: var(--lh-heading-lg);
+}
+
+.lead {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+
+.headMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.eyebrowRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-14);
+}
+
+.eyebrow {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--ls-nav-ja);
+}
+
+/* ---------------------------------------------------------------- 課題（番号付きの行） */
+
+.rows {
+  border-top: var(--border-strong);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 120px 380px minmax(0, 1fr);
+  grid-template-areas: "numeral title body";
+  gap: var(--space-40);
+  align-items: baseline;
+  padding-block: var(--space-44);
+  border-bottom: var(--border-hair);
+}
+
+.numeral {
+  grid-area: numeral;
+  font-family: var(--font-display);
+  font-size: var(--fs-numeral);
+  font-weight: 500;
+  line-height: var(--lh-none);
+}
+
+.rowTitle {
+  grid-area: title;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.rowBody {
+  grid-area: body;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+}
+
+/* ---------------------------------------------------------------- Pixie for Operations */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-48);
+  padding: 0;
+  list-style: none;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-18);
+  padding-top: var(--space-28);
+  border-top: var(--border-strong);
+}
+
+.featureLabel {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--color-muted);
+}
+
+.featureTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3-feature);
+  font-weight: 700;
+}
+
+.featureBody {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+}
+
+.principles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-28);
+  padding-block: var(--space-24);
+  border-block: var(--border-hair);
+  font-size: var(--fs-body-sm);
+}
+
+.principlesLabel {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--color-muted);
+}
+
+.principle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-28);
+}
+
+.separator {
+  color: var(--color-separator);
+}
+
+.more {
+  align-self: flex-start;
+}
+
+/* ---------------------------------------------------------------- Pixieシリーズ（製品の行） */
+
+.products {
+  gap: var(--space-64);
+}
+
+.productList {
+  border-top: var(--border-strong);
+}
+
+.product {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) 160px;
+  gap: var(--space-40);
+  align-items: center;
+  padding-block: var(--space-36);
+  border-bottom: var(--border-hair);
+  text-decoration: none;
+}
+
+.productCode {
+  font-family: var(--font-display);
+  font-size: var(--fs-product-code);
+  font-weight: 700;
+  line-height: var(--lh-none);
+  letter-spacing: var(--ls-display);
+}
+
+.productText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.productName {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-meta);
+  color: var(--color-muted);
+}
+
+.productBody {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-compact);
+}
+
+.productAside {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-20);
+}
+
+.productArrow {
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------- 募集の帯 */
+
+.cta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-80);
+  padding: var(--section-y) var(--page-inline);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.cta :focus-visible {
+  outline: var(--focus-ring-on-dark);
+}
+
+.ctaMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-28);
+}
+
+.ctaLabel {
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-label);
+  color: var(--color-on-accent-muted);
+}
+
+.ctaHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-heading-ja);
+}
+
+.ctaBody {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-ja);
+  color: var(--color-on-accent-soft);
+  text-wrap: pretty;
+}
+
+.ctaAction {
+  padding-top: var(--space-8);
+}
+
+.terms {
+  align-self: end;
+  border-top: 1px solid var(--color-on-accent);
+}
+
+.term {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: var(--space-24);
+  padding-block: var(--space-22);
+  border-bottom: 1px solid var(--color-accent-line);
+}
+
+.term dt {
+  font-size: var(--fs-small);
+  color: var(--color-on-accent-muted);
+}
+
+.term dd {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-compact);
+}
+
+/* ---------------------------------------------------------------- 記事 */
+
+.articles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+  padding: var(--section-y-md) var(--page-inline);
+}
+
+.articlesHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.articlesHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2-sm);
+  font-weight: 700;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-48);
+}
+
+/* ================================================================ 1024〜1439px
+ * 列の並べ方は変えず、固定幅の列と、見出しとリードの間隔を詰める */
+
+@media (width < 1440px) {
+  .heroFoot,
+  .statement,
+  .cta {
+    gap: var(--space-48);
+  }
+
+  .row {
+    grid-template-columns: 96px 300px minmax(0, 1fr);
+  }
+
+  .product {
+    grid-template-columns: 240px minmax(0, 1fr) 120px;
+  }
+}
+
+/* ================================================================ 768〜1023px */
+
+@media (width < 1024px) {
+  .heroFoot {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+
+  .heroActions {
+    justify-content: flex-start;
+  }
+
+  .statement {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+
+  /* 見出しの下に本文 */
+  .row {
+    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-areas:
+      "numeral title"
+      "numeral body";
+    gap: var(--space-10) var(--space-24);
+    align-items: start;
+  }
+
+  .features {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+
+  /* 1行に収まらないので、縦に並べて区切りの「／」を消す */
+  .principles {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-10);
+    line-height: var(--lh-list-sm);
+  }
+
+  .separator {
+    display: none;
+  }
+
+  /* タグは説明の下 */
+  .product {
+    grid-template-columns: 200px minmax(0, 1fr);
+    grid-template-areas:
+      "code text"
+      "code aside";
+    gap: var(--space-16) var(--space-40);
+  }
+
+  .productCode {
+    grid-area: code;
+  }
+
+  .productText {
+    grid-area: text;
+  }
+
+  .productAside {
+    grid-area: aside;
+    justify-content: flex-start;
+  }
+
+  .productArrow {
+    display: none;
+  }
+
+  .cta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ================================================================ 767px以下（参照 ja-top-mobile.html） */
+
+@media (width < 768px) {
+  .hero {
+    padding-top: var(--space-40);
+  }
+
+  .heroLabel {
+    font-size: var(--fs-label);
+    letter-spacing: var(--ls-label);
+  }
+
+  .heroTitle {
+    margin-top: var(--space-28);
+    letter-spacing: normal;
+  }
+
+  .heroFoot {
+    margin-top: var(--space-40);
+  }
+
+  .heroLead {
+    line-height: var(--lh-lead-sm);
+  }
+
+  /* 主ボタンを幅いっぱいにし、テキストリンクはその下の中央に置く（design-system.md §8） */
+  .heroActions {
+    flex-direction: column-reverse;
+    gap: var(--space-16);
+  }
+
+  /* 参照では、この行だけ高さ44pxの箱として並ぶ */
+  .heroActions .heroLink {
+    margin-block: 0;
+  }
+
+  /* 参照では、スマホの黒い帯だけ上下72px（ほかのセクションは80px） */
+  .statement {
+    gap: var(--space-32);
+    padding-block: var(--section-y-sm);
+  }
+
+  .statementText {
+    line-height: var(--lh-heading-lg);
+  }
+
+  .statementNote {
+    gap: var(--space-16);
+  }
+
+  .statementLabel {
+    font-size: var(--fs-label);
+  }
+
+  .section {
+    gap: var(--space-40);
+  }
+
+  .problemsHead {
+    gap: var(--space-40);
+  }
+
+  .heading,
+  .ctaHeading {
+    line-height: var(--lh-heading-sm);
+  }
+
+  .headingLg {
+    line-height: var(--lh-heading-ja);
+  }
+
+  /* 参照では、スマホのこの見出しだけ --fs-h2 の大きさ（32px） */
+  .productsHeading {
+    font-size: var(--fs-h2);
+  }
+
+  .headMain {
+    gap: var(--space-20);
+  }
+
+  .eyebrowRow {
+    gap: var(--space-10);
+  }
+
+  .eyebrow {
+    font-size: var(--fs-caption);
+    letter-spacing: var(--ls-meta);
+  }
+
+  .row {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: var(--space-10) var(--space-12);
+    padding-block: var(--space-28);
+  }
+
+  .rowTitle {
+    line-height: var(--lh-heading-sm);
+  }
+
+  .rowBody {
+    font-size: var(--fs-body-sm);
+    line-height: var(--lh-body-sm);
+  }
+
+  .features {
+    gap: var(--space-36);
+  }
+
+  .feature {
+    gap: var(--space-12);
+    padding-top: var(--space-24);
+  }
+
+  .featureLabel {
+    font-size: var(--fs-label);
+  }
+
+  .principles {
+    padding-block: var(--space-20);
+  }
+
+  .principlesLabel {
+    font-size: var(--fs-label);
+  }
+
+  /* 1行目にコードとタグ、その下に正式名と説明 */
+  .product {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "code aside"
+      "name name"
+      "body body";
+    gap: var(--space-10);
+    padding-block: var(--space-24);
+  }
+
+  .productCode {
+    letter-spacing: normal;
+  }
+
+  .productText {
+    display: contents;
+  }
+
+  .productName {
+    grid-area: name;
+    font-size: var(--fs-label);
+    letter-spacing: var(--ls-logo);
+  }
+
+  .productBody {
+    grid-area: body;
+  }
+
+  .cta {
+    gap: var(--space-28);
+  }
+
+  .ctaLabel {
+    font-size: var(--fs-label);
+  }
+
+  .ctaBody {
+    font-size: var(--fs-body-sm);
+  }
+
+  .ctaAction {
+    padding-top: 0;
+  }
+
+  .term {
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: var(--space-12);
+    padding-block: var(--space-16);
+  }
+
+  .term dt,
+  .term dd {
+    font-size: var(--fs-small);
+  }
+
+  .articles {
+    gap: var(--space-32);
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-28);
+  }
+}

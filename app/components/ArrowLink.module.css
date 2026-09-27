@@ -1,0 +1,20 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: var(--tap-min);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+@media (width < 768px) {
+  .link {
+    gap: var(--space-10);
+    font-size: var(--fs-body-sm);
+  }
+}

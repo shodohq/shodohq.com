@@ -1,0 +1,45 @@
+.rule {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rule::before {
+  content: "";
+  flex-grow: 1;
+  border-top: var(--border-strong);
+}
+
+/* 点の中心を罫線に合わせる */
+.dot {
+  position: absolute;
+  top: 50%;
+  left: var(--dot-position);
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.lg {
+  height: var(--rule-row);
+}
+
+.lg .dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+}
+
+.sm {
+  height: var(--rule-row-sm);
+}
+
+.sm .dot {
+  width: var(--dot-size-sm);
+  height: var(--dot-size-sm);
+}
+
+@media (width < 768px) {
+  .dot {
+    left: var(--dot-position-sm);
+  }
+}

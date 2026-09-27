@@ -1,9 +1,11 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
+import { content } from "./vite-plugins/content.ts";
 
 export default defineConfig({
-  plugins: [cloudflare({ viteEnvironment: { name: "ssr" } }), reactRouter()],
+  // content/ のMarkdownは、ビルドのときにHTMLにする（docs/spec.md §8）
+  plugins: [content(), cloudflare({ viteEnvironment: { name: "ssr" } }), reactRouter()],
   resolve: {
     tsconfigPaths: true,
   },

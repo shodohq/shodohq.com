@@ -1,0 +1,29 @@
+/*
+ * 押せる範囲を上下に広げて44pxにする。
+ * 同じ分だけ負のマージンで戻すので、まわりの配置（行揃えや間隔）は参照のまま変わらない
+ */
+.link {
+  display: inline-block;
+  padding-block: calc((var(--tap-min) - 1lh) / 2);
+  margin-block: calc((var(--tap-min) - 1lh) / -2);
+  font-weight: 500;
+  text-underline-offset: var(--space-6);
+}
+
+.md {
+  font-size: var(--fs-body);
+}
+
+.sm {
+  font-size: var(--fs-body-sm);
+}
+
+@media (width < 768px) {
+  .md {
+    font-size: var(--fs-body-sm);
+  }
+
+  .sm {
+    font-size: var(--fs-small);
+  }
+}

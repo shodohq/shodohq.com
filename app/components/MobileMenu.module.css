@@ -1,0 +1,99 @@
+/* 1024px以上ではヘッダーのナビを使うので、出さない */
+.mobile {
+  display: none;
+}
+
+@media (width < 1024px) {
+  .mobile {
+    display: block;
+  }
+}
+
+/* メニューボタン。JavaScriptが動かないときの代わりのリンクも同じ見た目にする */
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* ヘッダーの下から画面の下までを覆う */
+.menu {
+  position: absolute;
+  top: var(--header-height-sm);
+  right: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  height: calc(100dvh - var(--header-height-sm));
+  overflow-y: auto;
+  padding: var(--space-32) var(--page-inline) var(--space-40);
+  border-bottom: var(--border-strong);
+  background: var(--color-bg);
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  border-top: var(--border-strong);
+}
+
+/* 参照は、高さ64pxに下罫線1pxが外に付く（1行65px） */
+.item {
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--menu-item-height);
+  border-bottom: var(--border-hair);
+  font-family: var(--font-display);
+  font-size: var(--fs-menu);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.item[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: var(--space-8);
+}
+
+/* メニューの中の主ボタンは、768〜1023pxでも幅いっぱいにする */
+.menu .cta {
+  display: flex;
+  width: 100%;
+  height: var(--button-height-sm);
+  gap: var(--space-10);
+}
+
+.sub {
+  display: flex;
+  gap: var(--space-24);
+  font-size: var(--fs-small);
+}
+
+.subLink {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  text-decoration: none;
+}
+
+.subMuted {
+  color: var(--color-muted);
+}
+
+.subMuted:hover {
+  color: var(--color-accent);
+}

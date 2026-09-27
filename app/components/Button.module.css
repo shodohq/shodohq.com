@@ -1,0 +1,51 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  height: var(--button-height);
+  padding: 0 var(--space-32);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.primary:hover {
+  background: var(--color-accent-hover);
+  color: var(--color-on-accent);
+}
+
+.onAccent {
+  background: var(--color-on-accent);
+  color: var(--color-ink);
+}
+
+.onAccent:hover {
+  background: var(--color-on-accent-muted);
+  color: var(--color-ink);
+}
+
+/* 青い帯の上なので、フォーカスのリングを白にする */
+.onAccent:focus-visible {
+  outline: var(--focus-ring-on-dark);
+}
+
+@media (width < 768px) {
+  .button {
+    display: flex;
+    width: 100%;
+    height: var(--button-height-sm);
+    gap: var(--space-10);
+  }
+}
