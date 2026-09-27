@@ -11,6 +11,11 @@
   border-color: var(--color-dark-text);
 }
 
+.muted {
+  border: 0;
+  background: var(--color-tag-bg);
+}
+
 .compact {
   padding-block: var(--space-3);
 }

@@ -1,5 +1,6 @@
 import { Button } from "./Button";
 import styles from "./CTABand.module.css";
+import { Lines } from "./Lines";
 
 type CTABandProps = {
   label: string;
@@ -20,12 +21,7 @@ export function CTABand({ label, heading, body, button, to }: CTABandProps) {
       <div className={styles.main}>
         <p className={styles.label}>{label}</p>
         <p className={styles.heading}>
-          {heading.map((line, index) => (
-            <span key={line}>
-              {index > 0 && <br />}
-              {line}
-            </span>
-          ))}
+          <Lines lines={heading} />
         </p>
         {body && <p className={styles.body}>{body}</p>}
       </div>

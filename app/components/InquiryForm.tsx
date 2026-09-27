@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { localizePath, paths } from "~/lib/site";
+import { type Lang, localizePath, paths } from "~/lib/site";
 import { Button } from "./Button";
 import styles from "./InquiryForm.module.css";
 
@@ -19,59 +19,128 @@ type FormSpec = {
   fields: TextFieldSpec[];
   products?: { legend: string; choices: Choice[] };
   message: { label: string; rows: number; placeholder?: string };
+  /** 同意のラベル。policy の部分を /privacy/ へのリンクにする（§6.1） */
+  agree: { before: string; policy: string; after: string };
+  submit: string;
 };
 
-/** 項目と文言（docs/spec.md §6.1、§6.2。選択肢の文言は参照 ja-poc.html、ja-contact.html） */
-const forms: Record<FormName, FormSpec> = {
-  poc: {
-    kind: {
-      legend: "ご相談の種類",
-      columns: 1,
-      choices: [
-        { value: "poc", label: "Pixie 4製品のPoC" },
-        { value: "partner", label: "Pixie for Operations デザインパートナー" },
+const productChoices: Choice[] = [
+  { value: "caasm", label: "Pixie CAASM" },
+  { value: "easm", label: "Pixie EASM" },
+  { value: "iasm", label: "Pixie IASM" },
+  { value: "aspm", label: "Pixie ASPM" },
+  { value: "ops", label: "Pixie for Operations" },
+];
+
+/**
+ * 項目と文言（docs/spec.md §6.1、§6.2。選択肢の文言は参照 ja-poc.html、ja-contact.html、en-poc.html、en-contact.html）。
+ * メッセージの「（任意）」「(optional)」は、参照にないものを足している（§6.1）
+ */
+const forms: Record<Lang, Record<FormName, FormSpec>> = {
+  ja: {
+    poc: {
+      kind: {
+        legend: "ご相談の種類",
+        columns: 1,
+        choices: [
+          { value: "poc", label: "Pixie 4製品のPoC" },
+          { value: "partner", label: "Pixie for Operations デザインパートナー" },
+        ],
+      },
+      fields: [
+        { name: "company", label: "会社名", type: "text", autoComplete: "organization" },
+        { name: "dept", label: "部署・役職", type: "text", autoComplete: "organization-title" },
+        { name: "name", label: "お名前", type: "text", autoComplete: "name" },
+        { name: "email", label: "メールアドレス", type: "email", autoComplete: "email" },
       ],
+      products: { legend: "関心のある製品（複数選択可）", choices: productChoices },
+      message: {
+        label: "ご相談の内容（任意）",
+        rows: 6,
+        placeholder: "いま抱えている課題や、確かめたいことをお書きください",
+      },
+      agree: { before: "", policy: "プライバシーポリシー", after: "に同意する" },
+      submit: "送信する",
     },
-    fields: [
-      { name: "company", label: "会社名", type: "text", autoComplete: "organization" },
-      { name: "dept", label: "部署・役職", type: "text", autoComplete: "organization-title" },
-      { name: "name", label: "お名前", type: "text", autoComplete: "name" },
-      { name: "email", label: "メールアドレス", type: "email", autoComplete: "email" },
-    ],
-    products: {
-      legend: "関心のある製品（複数選択可）",
-      choices: [
-        { value: "caasm", label: "Pixie CAASM" },
-        { value: "easm", label: "Pixie EASM" },
-        { value: "iasm", label: "Pixie IASM" },
-        { value: "aspm", label: "Pixie ASPM" },
-        { value: "ops", label: "Pixie for Operations" },
+    contact: {
+      kind: {
+        legend: "お問い合わせの種類",
+        columns: 2,
+        choices: [
+          { value: "product", label: "製品について" },
+          { value: "poc", label: "PoC・デザインパートナー" },
+          { value: "vuln", label: "脆弱性の報告" },
+          { value: "other", label: "その他" },
+        ],
+      },
+      fields: [
+        { name: "company", label: "会社名（任意）", type: "text", autoComplete: "organization" },
+        { name: "name", label: "お名前", type: "text", autoComplete: "name" },
+        { name: "email", label: "メールアドレス", type: "email", autoComplete: "email" },
       ],
-    },
-    // 参照にない「（任意）」を足す（§6.1）
-    message: {
-      label: "ご相談の内容（任意）",
-      rows: 6,
-      placeholder: "いま抱えている課題や、確かめたいことをお書きください",
+      message: { label: "お問い合わせの内容", rows: 8 },
+      agree: { before: "", policy: "プライバシーポリシー", after: "に同意する" },
+      submit: "送信する",
     },
   },
-  contact: {
-    kind: {
-      legend: "お問い合わせの種類",
-      columns: 2,
-      choices: [
-        { value: "product", label: "製品について" },
-        { value: "poc", label: "PoC・デザインパートナー" },
-        { value: "vuln", label: "脆弱性の報告" },
-        { value: "other", label: "その他" },
+  en: {
+    poc: {
+      kind: {
+        legend: "What are you interested in?",
+        columns: 1,
+        choices: [
+          { value: "poc", label: "A PoC for the four Pixie products" },
+          { value: "partner", label: "Becoming a Pixie for Operations design partner" },
+        ],
+      },
+      fields: [
+        { name: "company", label: "Company", type: "text", autoComplete: "organization" },
+        {
+          name: "dept",
+          label: "Department and title",
+          type: "text",
+          autoComplete: "organization-title",
+        },
+        { name: "name", label: "Name", type: "text", autoComplete: "name" },
+        { name: "email", label: "Email", type: "email", autoComplete: "email" },
       ],
+      products: {
+        legend: "Products of interest (select all that apply)",
+        choices: productChoices,
+      },
+      message: {
+        label: "Message (optional)",
+        rows: 6,
+        placeholder: "Tell us about your challenges and what you want to validate",
+      },
+      agree: { before: "I agree to the ", policy: "privacy policy", after: "" },
+      submit: "Send",
     },
-    fields: [
-      { name: "company", label: "会社名（任意）", type: "text", autoComplete: "organization" },
-      { name: "name", label: "お名前", type: "text", autoComplete: "name" },
-      { name: "email", label: "メールアドレス", type: "email", autoComplete: "email" },
-    ],
-    message: { label: "お問い合わせの内容", rows: 8 },
+    contact: {
+      kind: {
+        legend: "Type of inquiry",
+        columns: 2,
+        choices: [
+          { value: "product", label: "Products" },
+          { value: "poc", label: "PoC or design partnership" },
+          { value: "vuln", label: "Vulnerability report" },
+          { value: "other", label: "Other" },
+        ],
+      },
+      fields: [
+        {
+          name: "company",
+          label: "Company (optional)",
+          type: "text",
+          autoComplete: "organization",
+        },
+        { name: "name", label: "Name", type: "text", autoComplete: "name" },
+        { name: "email", label: "Email", type: "email", autoComplete: "email" },
+      ],
+      message: { label: "Message", rows: 8 },
+      agree: { before: "I agree to the ", policy: "privacy policy", after: "" },
+      submit: "Send",
+    },
   },
 };
 
@@ -79,9 +148,8 @@ const forms: Record<FormName, FormSpec> = {
  * PoC応募とお問い合わせのフォーム（docs/spec.md §6）。
  * いまは見た目と項目だけ。送信の処理（action、入力の確認、Slackへの投稿）はフォームの段階で足す
  */
-export function InquiryForm({ form }: { form: FormName }) {
-  const spec = forms[form];
-  const lang = "ja";
+export function InquiryForm({ lang, form }: { lang: Lang; form: FormName }) {
+  const spec = forms[lang][form];
   const id = (name: string) => `${form}-${name}`;
 
   return (
@@ -202,12 +270,14 @@ export function InquiryForm({ form }: { form: FormName }) {
         />
         {/* 「プライバシーポリシー」を /privacy/ へのリンクにする（§6.1） */}
         <span>
-          <Link to={localizePath(lang, paths.privacy)}>プライバシーポリシー</Link>に同意する
+          {spec.agree.before}
+          <Link to={localizePath(lang, paths.privacy)}>{spec.agree.policy}</Link>
+          {spec.agree.after}
         </span>
       </label>
 
       <div>
-        <Button className={styles.submit}>送信する</Button>
+        <Button className={styles.submit}>{spec.submit}</Button>
       </div>
     </form>
   );

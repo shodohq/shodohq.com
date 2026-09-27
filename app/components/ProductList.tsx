@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { cx } from "~/lib/cx";
-import { localizePath, paths } from "~/lib/site";
+import { type Lang, localizePath, paths } from "~/lib/site";
 import { Icon } from "./Icon";
 import styles from "./ProductList.module.css";
 import { Tag } from "./Tag";
@@ -33,12 +33,38 @@ const products = {
       body: "アプリケーションの脆弱性とリスクを、開発から運用まで一元的に管理します。",
     },
   ],
+  en: [
+    {
+      id: "caasm",
+      code: "CAASM",
+      name: "Cyber Asset Attack Surface Management",
+      body: "Consolidates scattered asset information into a single inventory.",
+    },
+    {
+      id: "easm",
+      code: "EASM",
+      name: "External Attack Surface Management",
+      body: "Discovers externally visible domains and services to reveal your points of entry.",
+    },
+    {
+      id: "iasm",
+      code: "IASM",
+      name: "Internal Attack Surface Management",
+      body: "Maps the attack surface inside your internal network.",
+    },
+    {
+      id: "aspm",
+      code: "ASPM",
+      name: "Application Security Posture Management",
+      body: "Manages application vulnerabilities and risk from development through operations.",
+    },
+  ],
 } as const;
 
-const betaLabel = { ja: "ベータ" } as const;
+const betaLabel = { ja: "ベータ", en: "Beta" } as const;
 
 type ProductListProps = {
-  lang: "ja";
+  lang: Lang;
   /**
    * link：各行を製品一覧の該当箇所へのリンクにする（トップ）。
    * anchor：各行に id を付け、リンクにしない（製品一覧。トップとフッターのリンクの行き先）

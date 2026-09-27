@@ -115,7 +115,7 @@ export default function Articles({ loaderData }: Route.ComponentProps) {
               to={articlePath(article.slug)}
               date={article.date}
               dateLabel={formatDate(article.date, "ja")}
-              category={article.category}
+              tags={[{ label: article.category }]}
               title={article.title}
               description={article.description}
             />

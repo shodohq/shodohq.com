@@ -126,6 +126,10 @@
   resize: vertical;
 }
 
+.textarea:lang(en) {
+  line-height: var(--lh-170);
+}
+
 .textarea::placeholder {
   color: var(--color-muted);
 }

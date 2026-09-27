@@ -1,0 +1,10 @@
+/* 英語の記事一覧（参照 en-articles.html） */
+
+/* 記事が日本語だけであることの案内 */
+.notice {
+  padding: var(--space-20) var(--space-24);
+  background: var(--color-bg-sub);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-170);
+  color: var(--color-text);
+}

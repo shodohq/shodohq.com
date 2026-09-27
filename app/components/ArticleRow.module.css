@@ -20,8 +20,10 @@
   color: var(--color-muted);
 }
 
-.tag {
-  align-self: flex-start;
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
 }
 
 .text {
@@ -45,6 +47,14 @@
 
 .arrow {
   margin-top: var(--space-14);
+}
+
+.title:lang(en) {
+  line-height: var(--lh-heading-en);
+}
+
+.description:lang(en) {
+  line-height: var(--lh-body-en);
 }
 
 @media (width < 1440px) {

@@ -31,6 +31,15 @@
   line-height: var(--lh-heading-ja);
 }
 
+/* 英語は、ラベルを大文字にし、見出しの行間を詰める（design-system.md §3） */
+.label:lang(en) {
+  text-transform: uppercase;
+}
+
+.heading:lang(en) {
+  line-height: var(--lh-heading-en);
+}
+
 .body {
   font-size: var(--fs-body);
   line-height: var(--lh-body-ja);

@@ -183,6 +183,40 @@ h1.heroTitle {
   color: var(--color-text);
 }
 
+/* ---------------------------------------------------------------- 英語（参照 en-poc.html） */
+
+.heroLabel:lang(en) {
+  text-transform: uppercase;
+}
+
+h1.heroTitle:lang(en) {
+  line-height: var(--lh-112);
+}
+
+.offerTitle:lang(en) {
+  line-height: var(--lh-125);
+}
+
+.term:lang(en) {
+  grid-template-columns: 140px minmax(0, 1fr);
+}
+
+.term > dd:lang(en),
+.stepBody:lang(en) {
+  line-height: var(--lh-170);
+}
+
+.offerBody:lang(en),
+.audienceBody:lang(en),
+.handling > li:lang(en),
+.formLead:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
+h2.formHeading:lang(en) {
+  line-height: var(--lh-120);
+}
+
 /* ================================================================ */
 
 @media (width < 1440px) {
@@ -221,7 +255,8 @@ h1.heroTitle {
     padding: var(--space-28) var(--space-24);
   }
 
-  .term {
+  .term,
+  .term:lang(en) {
     grid-template-columns: 104px minmax(0, 1fr);
     gap: var(--space-12);
   }

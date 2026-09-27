@@ -245,10 +245,49 @@ h1.heroTitle {
   color: var(--color-text);
 }
 
+/* ================================================================ 英語（参照 en-pixie-for-operations.html） */
+
+.comparisonCorner:lang(en) {
+  width: 220px;
+}
+
+.comparison:lang(en),
+.useCases:lang(en),
+.phases:lang(en) {
+  line-height: var(--lh-170);
+}
+
+.comparison tbody tr:first-child td:lang(en) {
+  line-height: var(--lh-140);
+}
+
+.tableNote:lang(en),
+.featureBody:lang(en),
+.principleBody:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
+.featureLabel:lang(en) {
+  letter-spacing: var(--ls-upper);
+}
+
+.featureItems:lang(en) {
+  line-height: var(--lh-160);
+}
+
+.phase:lang(en) {
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+
+.useCases thead th:first-child:lang(en) {
+  width: 340px;
+}
+
 /* ================================================================ 1024〜1439px */
 
 @media (width < 1440px) {
-  .comparisonCorner {
+  .comparisonCorner,
+  .comparisonCorner:lang(en) {
     width: 160px;
   }
 
@@ -256,7 +295,8 @@ h1.heroTitle {
     grid-template-columns: 80px minmax(0, 1fr) minmax(0, 1fr);
   }
 
-  .useCases thead th:first-child {
+  .useCases thead th:first-child,
+  .useCases thead th:first-child:lang(en) {
     width: 240px;
   }
 
@@ -272,7 +312,8 @@ h1.heroTitle {
 /* ================================================================ 768〜1023px：説明の下に一覧 */
 
 @media (width < 1024px) {
-  .comparisonCorner {
+  .comparisonCorner,
+  .comparisonCorner:lang(en) {
     width: 120px;
   }
 
@@ -285,7 +326,8 @@ h1.heroTitle {
     grid-column: 2;
   }
 
-  .useCases thead th:first-child {
+  .useCases thead th:first-child,
+  .useCases thead th:first-child:lang(en) {
     width: 200px;
   }
 

@@ -28,6 +28,12 @@
   font-size: var(--fs-page-title);
 }
 
+/* 英語のH1は、字間を空けず、行間を詰める */
+.title:lang(en) {
+  line-height: var(--lh-115);
+  letter-spacing: normal;
+}
+
 .policy {
   font-size: var(--fs-policy-title);
   line-height: var(--lh-125);

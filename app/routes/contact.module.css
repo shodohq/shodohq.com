@@ -25,3 +25,7 @@
   line-height: var(--lh-190);
   color: var(--color-text);
 }
+
+.guideBody:lang(en) {
+  line-height: var(--lh-body-en);
+}

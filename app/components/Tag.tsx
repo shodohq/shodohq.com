@@ -4,8 +4,8 @@ import styles from "./Tag.module.css";
 
 type TagProps = {
   children: ReactNode;
-  /** onDark：黒い帯の上（枠を明るい色にする） */
-  tone?: "default" | "onDark";
+  /** onDark：黒い帯の上（枠を明るい色にする）。muted：枠なしで地を付ける（「Japanese」タグ） */
+  tone?: "default" | "onDark" | "muted";
   /** 記事一覧の行のタグ。上下の余白が1px小さい */
   compact?: boolean;
   className?: string;
@@ -17,7 +17,7 @@ export function Tag({ children, tone = "default", compact = false, className }: 
     <span
       className={cx(
         styles.tag,
-        tone === "onDark" && styles.onDark,
+        tone !== "default" && styles[tone],
         compact && styles.compact,
         className,
       )}

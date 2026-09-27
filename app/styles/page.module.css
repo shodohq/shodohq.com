@@ -138,6 +138,35 @@
   color: var(--color-accent);
 }
 
+/* ---------------------------------------------------------------- 英語（design-system.md §3） */
+
+/* 見出しの行間を詰め、小さなラベルは大文字にする */
+.heading:lang(en),
+.headingLg:lang(en) {
+  line-height: var(--lh-heading-en);
+}
+
+.eyebrow:lang(en) {
+  letter-spacing: var(--ls-logo);
+}
+
+.label:lang(en) {
+  text-transform: uppercase;
+}
+
+.introStatement:lang(en) {
+  line-height: var(--lh-135);
+}
+
+.introLead:lang(en),
+.formNote:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
+.note:lang(en) {
+  line-height: var(--lh-170);
+}
+
 /* ================================================================ */
 
 @media (width < 1440px) {

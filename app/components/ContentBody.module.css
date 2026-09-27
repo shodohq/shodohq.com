@@ -31,6 +31,15 @@
   letter-spacing: var(--ls-eyebrow);
 }
 
+.toc:lang(en) {
+  line-height: var(--lh-160);
+}
+
+.tocHeading:lang(en),
+.tocSummary:lang(en) {
+  text-transform: uppercase;
+}
+
 .tocLink {
   color: var(--color-text);
   text-decoration: none;
@@ -100,6 +109,14 @@
 
 .policy .html > h2:first-child {
   margin-top: 0;
+}
+
+.policy .html h2:lang(en) {
+  line-height: var(--lh-140);
+}
+
+.policy .html:has(h3) h2:lang(en) {
+  line-height: var(--lh-heading-en);
 }
 
 .html h3 {
@@ -197,6 +214,18 @@
   line-height: var(--lh-body-ja);
 }
 
+.policy .html ol > li:has(> strong:first-child):lang(en) {
+  line-height: var(--lh-170);
+}
+
+.policy .html ol > li:has(> strong:first-child):lang(en)::before {
+  line-height: var(--lh-140);
+}
+
+.policy .html ol > li > strong:first-child:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
 /* 表（参照の記事1の表） */
 .html table {
   width: 100%;
@@ -242,6 +271,11 @@
   border-top: var(--border-hair);
 }
 
+/* 英語の見出しは長いので、160pxより狭くしない（参照 en-privacy.html は160pxと200px） */
+.html:lang(en) :global(.def-list) {
+  grid-template-columns: minmax(160px, max-content) minmax(0, 1fr);
+}
+
 .html :global(.def-list) > div {
   display: grid;
   grid-column: 1 / -1;
@@ -255,8 +289,14 @@
   color: var(--color-muted);
 }
 
-/* 英語版の住所（英語と日本語の2行） */
-.html :global(.def-list) dd > span {
+/* 英語版の住所（英語と日本語の2行）。2行目は日本語の正式な住所なので、小さな補足の文字にする */
+.html :global(.def-list) dd > span + span {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.html :global(.def-list) dd:has(> span + span) > span {
   display: block;
 }
 
@@ -279,6 +319,10 @@
   font-size: var(--fs-small);
   line-height: var(--lh-180);
   color: var(--color-text);
+}
+
+.html :global(.report-box) > p:lang(en) {
+  line-height: var(--lh-170);
 }
 
 /* セキュリティポリシーの末尾の、security.txt の案内（参照では小さな補足の文字） */
@@ -339,7 +383,8 @@
     padding-top: var(--space-40);
   }
 
-  .html :global(.def-list) {
+  .html :global(.def-list),
+  .html:lang(en) :global(.def-list) {
     grid-template-columns: 104px minmax(0, 1fr);
     column-gap: var(--space-12);
   }

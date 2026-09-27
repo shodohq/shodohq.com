@@ -46,6 +46,10 @@
   line-height: var(--lh-180);
 }
 
+.body:lang(en) {
+  line-height: var(--lh-170);
+}
+
 .aside {
   display: flex;
   align-items: center;

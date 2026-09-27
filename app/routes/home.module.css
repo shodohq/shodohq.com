@@ -282,6 +282,73 @@
   gap: var(--space-48);
 }
 
+/* ================================================================ 英語（参照 en-top.html） */
+
+.heroLabel:lang(en) {
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}
+
+.heroTitle:lang(en) {
+  font-size: var(--fs-hero-en);
+  letter-spacing: var(--ls-hero-en);
+}
+
+.heroLead:lang(en) {
+  font-size: var(--fs-lead-en);
+  line-height: var(--lh-body-en);
+}
+
+/* 英語の黒い帯は、一文の下に社名の由来を置く1列の形（docs/spec.md §4） */
+.statement:lang(en) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-56);
+  align-items: stretch;
+}
+
+.statementText:lang(en) {
+  font-size: var(--fs-statement-en);
+  line-height: var(--lh-heading-en);
+}
+
+.statementNote:lang(en) {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 720px);
+  gap: var(--space-80);
+}
+
+.statementLabel:lang(en) {
+  text-transform: uppercase;
+}
+
+.statementBody:lang(en) {
+  line-height: var(--lh-190);
+}
+
+.rowTitle:lang(en) {
+  line-height: var(--lh-heading-en);
+}
+
+.rowBody:lang(en),
+.featureBody:lang(en),
+.ctaBody:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
+.ctaLabel:lang(en) {
+  text-transform: uppercase;
+}
+
+h2.ctaHeading:lang(en) {
+  font-size: var(--fs-h2-md);
+  line-height: var(--lh-135);
+}
+
+.term dd:lang(en) {
+  line-height: var(--lh-170);
+}
+
 /* ================================================================ 1024〜1439px
  * 列の並べ方は変えず、固定幅の列と、見出しとリードの間隔を詰める */
 
@@ -327,6 +394,11 @@
   .features {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-40);
+  }
+
+  .statementNote:lang(en) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-20);
   }
 
   /* 1行に収まらないので、縦に並べて区切りの「／」を消す */
@@ -396,8 +468,13 @@
     line-height: var(--lh-140);
   }
 
-  .statementNote {
+  .statementNote,
+  .statementNote:lang(en) {
     gap: var(--space-16);
+  }
+
+  .statement:lang(en) {
+    gap: var(--space-32);
   }
 
   .statementLabel {

@@ -4,3 +4,7 @@
   color: var(--color-text);
   text-wrap: pretty;
 }
+
+.body:lang(en) {
+  line-height: var(--lh-body-en);
+}

@@ -92,10 +92,16 @@
   line-height: var(--lh-180);
 }
 
-.corporateNumber {
+/* 値を縦に2行で並べる（法人番号と確認のリンク、英語の住所と日本語の住所） */
+.stacked {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+}
+
+.factNote {
+  font-size: var(--fs-small);
+  color: var(--color-muted);
 }
 
 .factLink {
@@ -148,6 +154,29 @@
   text-underline-offset: var(--space-6);
 }
 
+/* ---------------------------------------------------------------- 英語（参照 en-company.html） */
+
+.bandLabel:lang(en) {
+  text-transform: uppercase;
+}
+
+.bandStatement:lang(en) {
+  line-height: var(--lh-140);
+}
+
+.bandBody:lang(en),
+.securityBody:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
+.fact:lang(en) {
+  grid-template-columns: 200px minmax(0, 1fr);
+}
+
+.fact > dd:lang(en) {
+  line-height: var(--lh-170);
+}
+
 /* ================================================================ */
 
 @media (width < 1440px) {
@@ -192,7 +221,8 @@
     font-size: var(--fs-label);
   }
 
-  .fact {
+  .fact,
+  .fact:lang(en) {
     grid-template-columns: 104px minmax(0, 1fr);
     gap: var(--space-12);
     padding-block: var(--space-20);
