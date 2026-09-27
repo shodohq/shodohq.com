@@ -8,7 +8,7 @@ import "@fontsource/zen-kaku-gothic-antique/700.css";
 import "./styles/tokens.css";
 import "./styles/global.css";
 
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -18,12 +18,14 @@ import {
   ScrollRestoration,
   useLocation,
   useRouteError,
+  useRouteLoaderData,
 } from "react-router";
 import type { Route } from "./+types/root";
 import { ErrorPage, errorTitle } from "./components/ErrorPage";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { siteOrigin, turnstileSiteKey } from "./lib/env.server";
+import { trackPageView } from "./lib/analytics";
+import { gaMeasurementId, siteOrigin, turnstileSiteKey } from "./lib/env.server";
 import {
   alternatePath,
   company,
@@ -41,9 +43,11 @@ export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
 ];
 
-export function loader() {
+export function loader({ request }: Route.LoaderArgs) {
   return {
     siteOrigin: siteOrigin(),
+    // GAは本番のオリジンで、測定IDがあるときだけ出す（オリジンだけを見る。パスは使わない。§10、§11）
+    gaMeasurementId: gaMeasurementId(new URL(request.url).origin),
     // Turnstileを使うときだけ、フォームにサイトキーを渡す（docs/spec.md §6.5、§15.4）
     turnstileSiteKey: turnstileSiteKey(),
   };
@@ -69,6 +73,9 @@ export function Layout({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
   const error = useRouteError();
   const isError = error != null;
+  // ルートの loader がエラーになったときは、データがない（§14）
+  const gaId = useRouteLoaderData<typeof loader>("root")?.gaMeasurementId;
+  usePageViews();
   const lang = langFromPath(pathname);
   // 404とエラーのページの言語切り替えは、もう一方の言語のトップにつなぐ（§14）
   const alternate = isError ? localizePath(otherLang(lang), paths.home) : alternatePath(pathname);
@@ -83,6 +90,14 @@ export function Layout({ children }: { children: ReactNode }) {
         />
         <Meta />
         <Links />
+        {/* 自分のドメインのファイルなので、nonceはいらない。インラインの <script> でGAを書かない（§11） */}
+        {gaId && (
+          <script
+            src="/scripts/ga.js"
+            data-ga-id={gaId}
+            defer
+          />
+        )}
       </head>
       <body>
         <Header
@@ -102,6 +117,21 @@ export function Layout({ children }: { children: ReactNode }) {
       </body>
     </html>
   );
+}
+
+/**
+ * 画面の中の移動のページビューを、自分で送る（§11）。最初の読み込みは gtag('config') が送るので送らない。
+ * React Routerは新しいページのtitleを反映する前にURLを変えるので、GAの自動の計測に任せない。
+ * パスかクエリが変わったときだけ送る（ページ内リンクの # だけの移動は数えない）
+ */
+function usePageViews() {
+  const location = useLocation();
+  const key = `${location.pathname}${location.search}`;
+  const previous = useRef<string | null>(null);
+  useEffect(() => {
+    if (previous.current !== null && previous.current !== key) trackPageView();
+    previous.current = key;
+  }, [key]);
 }
 
 export default function App() {

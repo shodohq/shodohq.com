@@ -9,6 +9,14 @@ declare global {
   }
 }
 
+/** 画面の中の移動のページビュー。titleは移動先のものになっている */
+export function trackPageView() {
+  window.gtag?.("event", "page_view", {
+    page_location: window.location.href,
+    page_title: document.title,
+  });
+}
+
 /** フォームの送信に成功したとき。送るのはフォームの種類と、選んだ種類だけ */
 export function trackInquirySubmit(form: "poc" | "contact", kind: string) {
   window.gtag?.("event", "inquiry_submit", { form, kind });

@@ -19,6 +19,18 @@ export function turnstileEnabled(): boolean {
   return Boolean(env.TURNSTILE_SITE_KEY);
 }
 
+/**
+ * Google Analytics の測定ID（docs/spec.md §11）。
+ * 測定IDが空でなく、リクエストのオリジンが本番（SITE_ORIGIN）のときだけ返す。
+ * それ以外（手元、プレビュー、IDが空）では null を返し、GAのタグを一切出さない。
+ * Cookieの同意の仕組みを足すときも、判断はここにまとめる（地域で分けるなら request.cf?.country を使える）
+ */
+export function gaMeasurementId(origin: string): string | null {
+  const id: string = env.GA_MEASUREMENT_ID;
+  const productionOrigin: string = env.SITE_ORIGIN;
+  return id !== "" && origin === productionOrigin ? id : null;
+}
+
 /** Turnstileのサイトキー。使わないときは null（ルートの loader から画面に渡す。§15.4） */
 export function turnstileSiteKey(): string | null {
   return env.TURNSTILE_SITE_KEY || null;
