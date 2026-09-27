@@ -10,3 +10,11 @@ import { env } from "cloudflare:workers";
 export function siteOrigin(): string {
   return env.SITE_ORIGIN;
 }
+
+/**
+ * Turnstileを使うか。サイトキーが入っているときだけ使う（未決。docs/open-items.md #4、docs/spec.md §6.5）。
+ * 使うときだけ、CSPに読み込み元を足す（§12.2）
+ */
+export function turnstileEnabled(): boolean {
+  return Boolean(env.TURNSTILE_SITE_KEY);
+}
