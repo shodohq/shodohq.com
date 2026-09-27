@@ -16,6 +16,8 @@ export default [
   route("contact/sent", "routes/contact-sent.tsx"),
   route("privacy", "routes/privacy.tsx"),
   route("security-policy", "routes/security-policy.tsx"),
+  // 画面を持たず loader だけのリソースルート（§10）
+  route("sitemap.xml", "routes/sitemap.ts"),
 
   // 英語。記事は日本語だけなので、記事ページはない（§2）
   ...prefix("en", [
