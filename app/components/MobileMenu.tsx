@@ -149,7 +149,7 @@ export function MobileMenu({ lang, items, current, alternate }: MobileMenuProps)
         </div>
         <Button
           to={localizePath(lang, paths.poc)}
-          arrow={false}
+          icon={false}
           onClick={close}
           className={styles.cta}
         >

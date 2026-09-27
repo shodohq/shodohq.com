@@ -7,6 +7,14 @@
   white-space: nowrap;
 }
 
+.onDark {
+  border-color: var(--color-dark-text);
+}
+
+.compact {
+  padding-block: var(--space-3);
+}
+
 @media (width < 768px) {
   .tag {
     padding: var(--space-3) var(--space-10);

@@ -71,7 +71,7 @@
   font-family: var(--font-display);
   font-size: var(--fs-statement);
   font-weight: 700;
-  line-height: var(--lh-statement);
+  line-height: var(--lh-135);
 }
 
 .statementNote {
@@ -93,57 +93,13 @@
   text-wrap: pretty;
 }
 
-/* ---------------------------------------------------------------- セクションの共通 */
-
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-72);
-  padding: var(--section-y) var(--page-inline);
-}
-
-.ruled {
-  border-top: var(--border-hair);
-}
-
-.heading {
-  font-family: var(--font-display);
-  font-size: var(--fs-h2);
-  font-weight: 700;
-  line-height: var(--lh-heading-ja);
-}
-
-.headingLg {
-  font-family: var(--font-display);
-  font-size: var(--fs-h2-lg);
-  font-weight: 700;
-  line-height: var(--lh-heading-lg);
-}
-
-.lead {
-  font-size: var(--fs-body-lg);
-  line-height: var(--lh-body-ja);
-  color: var(--color-text);
-  text-wrap: pretty;
-}
-
-.headMain {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-24);
-}
+/* ---------------------------------------------------------------- 見出しの頭 */
 
 .eyebrowRow {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-14);
-}
-
-.eyebrow {
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: var(--ls-nav-ja);
 }
 
 /* ---------------------------------------------------------------- 課題（番号付きの行） */
@@ -202,12 +158,6 @@
   border-top: var(--border-strong);
 }
 
-.featureLabel {
-  font-size: var(--fs-caption);
-  letter-spacing: var(--ls-eyebrow);
-  color: var(--color-muted);
-}
-
 .featureTitle {
   font-family: var(--font-display);
   font-size: var(--fs-h3-feature);
@@ -230,12 +180,6 @@
   font-size: var(--fs-body-sm);
 }
 
-.principlesLabel {
-  font-size: var(--fs-caption);
-  letter-spacing: var(--ls-eyebrow);
-  color: var(--color-muted);
-}
-
 .principle {
   display: flex;
   align-items: center;
@@ -248,62 +192,6 @@
 
 .more {
   align-self: flex-start;
-}
-
-/* ---------------------------------------------------------------- Pixieシリーズ（製品の行） */
-
-.products {
-  gap: var(--space-64);
-}
-
-.productList {
-  border-top: var(--border-strong);
-}
-
-.product {
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr) 160px;
-  gap: var(--space-40);
-  align-items: center;
-  padding-block: var(--space-36);
-  border-bottom: var(--border-hair);
-  text-decoration: none;
-}
-
-.productCode {
-  font-family: var(--font-display);
-  font-size: var(--fs-product-code);
-  font-weight: 700;
-  line-height: var(--lh-none);
-  letter-spacing: var(--ls-display);
-}
-
-.productText {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-10);
-}
-
-.productName {
-  font-size: var(--fs-caption);
-  letter-spacing: var(--ls-meta);
-  color: var(--color-muted);
-}
-
-.productBody {
-  font-size: var(--fs-body-lg);
-  line-height: var(--lh-compact);
-}
-
-.productAside {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-20);
-}
-
-.productArrow {
-  flex-shrink: 0;
 }
 
 /* ---------------------------------------------------------------- 募集の帯 */
@@ -331,13 +219,6 @@
   font-size: var(--fs-small);
   letter-spacing: var(--ls-label);
   color: var(--color-on-accent-muted);
-}
-
-.ctaHeading {
-  font-family: var(--font-display);
-  font-size: var(--fs-h2);
-  font-weight: 700;
-  line-height: var(--lh-heading-ja);
 }
 
 .ctaBody {
@@ -371,7 +252,7 @@
 
 .term dd {
   font-size: var(--fs-body-sm);
-  line-height: var(--lh-compact);
+  line-height: var(--lh-180);
 }
 
 /* ---------------------------------------------------------------- 記事 */
@@ -414,10 +295,6 @@
   .row {
     grid-template-columns: 96px 300px minmax(0, 1fr);
   }
-
-  .product {
-    grid-template-columns: 240px minmax(0, 1fr) 120px;
-  }
 }
 
 /* ================================================================ 768〜1023px */
@@ -457,36 +334,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-10);
-    line-height: var(--lh-list-sm);
+    line-height: var(--lh-170);
   }
 
   .separator {
-    display: none;
-  }
-
-  /* タグは説明の下 */
-  .product {
-    grid-template-columns: 200px minmax(0, 1fr);
-    grid-template-areas:
-      "code text"
-      "code aside";
-    gap: var(--space-16) var(--space-40);
-  }
-
-  .productCode {
-    grid-area: code;
-  }
-
-  .productText {
-    grid-area: text;
-  }
-
-  .productAside {
-    grid-area: aside;
-    justify-content: flex-start;
-  }
-
-  .productArrow {
     display: none;
   }
 
@@ -521,7 +372,7 @@
   }
 
   .heroLead {
-    line-height: var(--lh-lead-sm);
+    line-height: var(--lh-195);
   }
 
   /* 主ボタンを幅いっぱいにし、テキストリンクはその下の中央に置く（design-system.md §8） */
@@ -542,7 +393,7 @@
   }
 
   .statementText {
-    line-height: var(--lh-heading-lg);
+    line-height: var(--lh-140);
   }
 
   .statementNote {
@@ -553,39 +404,17 @@
     font-size: var(--fs-label);
   }
 
-  .section {
+  .problems .problemsHead {
     gap: var(--space-40);
-  }
-
-  .problemsHead {
-    gap: var(--space-40);
-  }
-
-  .heading,
-  .ctaHeading {
-    line-height: var(--lh-heading-sm);
-  }
-
-  .headingLg {
-    line-height: var(--lh-heading-ja);
   }
 
   /* 参照では、スマホのこの見出しだけ --fs-h2 の大きさ（32px） */
-  .productsHeading {
+  .products .productsHeading {
     font-size: var(--fs-h2);
-  }
-
-  .headMain {
-    gap: var(--space-20);
   }
 
   .eyebrowRow {
     gap: var(--space-10);
-  }
-
-  .eyebrow {
-    font-size: var(--fs-caption);
-    letter-spacing: var(--ls-meta);
   }
 
   .row {
@@ -595,12 +424,12 @@
   }
 
   .rowTitle {
-    line-height: var(--lh-heading-sm);
+    line-height: var(--lh-150);
   }
 
   .rowBody {
     font-size: var(--fs-body-sm);
-    line-height: var(--lh-body-sm);
+    line-height: var(--lh-190);
   }
 
   .features {
@@ -612,45 +441,8 @@
     padding-top: var(--space-24);
   }
 
-  .featureLabel {
-    font-size: var(--fs-label);
-  }
-
   .principles {
     padding-block: var(--space-20);
-  }
-
-  .principlesLabel {
-    font-size: var(--fs-label);
-  }
-
-  /* 1行目にコードとタグ、その下に正式名と説明 */
-  .product {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "code aside"
-      "name name"
-      "body body";
-    gap: var(--space-10);
-    padding-block: var(--space-24);
-  }
-
-  .productCode {
-    letter-spacing: normal;
-  }
-
-  .productText {
-    display: contents;
-  }
-
-  .productName {
-    grid-area: name;
-    font-size: var(--fs-label);
-    letter-spacing: var(--ls-logo);
-  }
-
-  .productBody {
-    grid-area: body;
   }
 
   .cta {

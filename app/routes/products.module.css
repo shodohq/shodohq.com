@@ -1,0 +1,183 @@
+/* 製品一覧（参照 ja-products.html） */
+
+/* ---------------------------------------------------------------- 黒い帯（Pixie for Operations） */
+
+.band {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-80);
+  align-items: start;
+  padding: var(--section-y) var(--page-inline);
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text);
+}
+
+.band :focus-visible {
+  outline: var(--focus-ring-on-dark);
+}
+
+.bandMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-28);
+}
+
+.bandTag {
+  align-self: flex-start;
+}
+
+.bandTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-band-title);
+  font-weight: 800;
+  line-height: var(--lh-display);
+}
+
+.bandTagline {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 700;
+  line-height: var(--lh-160);
+}
+
+.bandSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.bandBody {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-ja);
+  color: var(--color-dark-body);
+  text-wrap: pretty;
+}
+
+.bandList {
+  padding: 0;
+  border-top: 1px solid var(--color-dark-line);
+  list-style: none;
+}
+
+.bandItem {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: var(--space-24);
+  align-items: baseline;
+  padding-block: var(--space-18);
+  border-bottom: 1px solid var(--color-dark-line);
+}
+
+.bandLabel {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--color-dark-muted);
+}
+
+.bandName {
+  font-family: var(--font-display);
+  font-size: var(--fs-h5);
+  font-weight: 700;
+}
+
+/* 黒い地の上では、アクセント色だと読みにくいので、ホバーは下線で示す */
+.bandLink {
+  align-self: flex-start;
+  color: var(--color-dark-text);
+}
+
+.bandLink:hover {
+  color: var(--color-dark-text);
+  text-decoration: underline;
+  text-underline-offset: var(--space-6);
+}
+
+/* ---------------------------------------------------------------- 製品の関係の流れ */
+
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-28);
+  font-size: var(--fs-body);
+}
+
+.flowCodes {
+  font-size: var(--fs-body-sm);
+  letter-spacing: var(--ls-meta);
+  color: var(--color-muted);
+}
+
+.flowArrow {
+  flex-shrink: 0;
+}
+
+.flowStep {
+  font-family: var(--font-display);
+  font-size: var(--fs-h5);
+  font-weight: 700;
+  text-underline-offset: var(--space-8);
+}
+
+.flowEnd {
+  display: flex;
+  align-items: center;
+  gap: var(--space-28);
+}
+
+.flowNote {
+  font-size: var(--fs-caption);
+  color: var(--color-muted);
+}
+
+/* ================================================================ */
+
+@media (width < 1440px) {
+  .band {
+    gap: var(--space-48);
+  }
+}
+
+@media (width < 1024px) {
+  .band {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (width < 768px) {
+  .bandMain {
+    gap: var(--space-20);
+  }
+
+  .bandSide {
+    gap: var(--space-24);
+  }
+
+  .bandItem {
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: var(--space-12);
+  }
+
+  .bandLabel {
+    font-size: var(--fs-label);
+  }
+
+  /* 流れは縦に並べ、矢印を下向きにする */
+  .flow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-12);
+  }
+
+  /* 48×12の矢印を回すので、回したあとの形（12×48）が収まるように外側を空ける */
+  .flowArrow {
+    rotate: 90deg;
+    margin: var(--space-18) 0 var(--space-18) calc(var(--space-18) * -1);
+  }
+
+  .flowEnd {
+    flex-wrap: wrap;
+    gap: var(--space-8);
+  }
+}

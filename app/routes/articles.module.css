@@ -1,0 +1,51 @@
+/* 記事一覧（参照 ja-articles.html） */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+  padding: 0 var(--page-inline) var(--section-y);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+/* 絞り込みのチップ（docs/design-system.md §7 FilterChips） */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-20);
+  border: var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.chipSelected,
+.chipSelected:hover {
+  background: var(--color-ink);
+  color: var(--color-bg);
+  font-weight: 700;
+}
+
+.count {
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.rows {
+  border-top: var(--border-strong);
+}

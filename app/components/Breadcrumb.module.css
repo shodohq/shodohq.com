@@ -1,0 +1,30 @@
+.breadcrumb {
+  font-size: var(--fs-caption);
+  color: var(--color-muted);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.link {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--color-accent);
+}
+
+.last {
+  color: var(--color-ink);
+}

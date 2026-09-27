@@ -1,0 +1,349 @@
+/* Pixie for Operations（参照 ja-pixie-for-operations.html） */
+
+/* ---------------------------------------------------------------- 頭 */
+
+.heroTag {
+  align-self: flex-start;
+}
+
+h1.heroTitle {
+  letter-spacing: var(--ls-hero);
+}
+
+.heroSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+/* ---------------------------------------------------------------- 表の行の上下（表ごとに違う） */
+
+/* 統一基準との対応表 */
+.standards tbody > tr > * {
+  padding-block: var(--space-22);
+}
+
+/* ---------------------------------------------------------------- 既存製品との比較表 */
+
+.comparisonCorner {
+  width: 200px;
+}
+
+.comparison thead > tr > * {
+  padding-bottom: var(--space-20);
+  border-bottom: var(--border-strong);
+  font-size: var(--fs-small);
+}
+
+.theirsHead {
+  color: var(--color-muted);
+}
+
+.comparison thead .oursHead {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.oursHeadInner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+}
+
+.oursDot {
+  width: var(--dot-size-xs);
+  height: var(--dot-size-xs);
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.comparison .comparisonRowHead {
+  padding-right: 0;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.theirs {
+  color: var(--color-muted);
+}
+
+/* 1行目（答える問い）は、明朝の大きな文字で比べる */
+.comparison tbody tr:first-child > * {
+  padding-block: var(--space-28);
+}
+
+.comparison tbody tr:first-child td {
+  font-family: var(--font-display);
+  font-size: var(--fs-emph);
+  font-weight: 700;
+  line-height: var(--lh-160);
+}
+
+.tableNote {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-190);
+  color: var(--color-muted);
+}
+
+/* ---------------------------------------------------------------- 3つの機能（機能の詳細） */
+
+.features {
+  border-top: var(--border-strong);
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-48);
+  padding-block: var(--space-56);
+  border-bottom: var(--border-hair);
+}
+
+.numeral {
+  font-family: var(--font-display);
+  font-size: var(--fs-numeral);
+  font-weight: 500;
+  line-height: var(--lh-none);
+}
+
+.featureMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-18);
+}
+
+.featureTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3-lg);
+  font-weight: 700;
+}
+
+.featureBody {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+}
+
+.featureLists {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-32);
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.featureListHeading {
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.featureItems {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding: 0;
+  font-size: var(--fs-small);
+  line-height: var(--lh-170);
+  color: var(--color-text);
+  list-style: none;
+}
+
+.featureItems > li {
+  padding-top: var(--space-10);
+  border-top: var(--border-hair);
+}
+
+.phases {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  font-size: var(--fs-small);
+  line-height: var(--lh-180);
+  color: var(--color-text);
+}
+
+.phase {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: var(--space-16);
+  padding-top: var(--space-12);
+  border-top: var(--border-hair);
+}
+
+.phase > dt {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+/* ---------------------------------------------------------------- 使う場面の表 */
+
+.useCases thead th:first-child {
+  width: 320px;
+}
+
+.sceneHead {
+  font-family: var(--font-display);
+  font-size: var(--fs-row-head);
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- 統一基準との対応表 */
+
+.standards thead th:first-child {
+  width: 360px;
+}
+
+.standards thead th:last-child {
+  width: 280px;
+}
+
+.standardHead {
+  font-weight: 700;
+}
+
+.standardNumber {
+  display: block;
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.standardFeature {
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- 設計方針（4列） */
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-40);
+}
+
+.principle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+  padding-top: var(--space-24);
+  border-top: var(--border-strong);
+}
+
+.principleTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h5);
+  font-weight: 700;
+}
+
+.principleBody {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-190);
+  color: var(--color-text);
+}
+
+/* ================================================================ 1024〜1439px */
+
+@media (width < 1440px) {
+  .comparisonCorner {
+    width: 160px;
+  }
+
+  .feature {
+    grid-template-columns: 80px minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .useCases thead th:first-child {
+    width: 240px;
+  }
+
+  .standards thead th:first-child {
+    width: 280px;
+  }
+
+  .standards thead th:last-child {
+    width: 200px;
+  }
+}
+
+/* ================================================================ 768〜1023px：説明の下に一覧 */
+
+@media (width < 1024px) {
+  .comparisonCorner {
+    width: 120px;
+  }
+
+  .feature {
+    grid-template-columns: 64px minmax(0, 1fr);
+    row-gap: var(--space-32);
+  }
+
+  .feature > :nth-child(3) {
+    grid-column: 2;
+  }
+
+  .useCases thead th:first-child {
+    width: 200px;
+  }
+
+  .standards thead th:first-child {
+    width: 220px;
+  }
+
+  .standards thead th:last-child {
+    width: 160px;
+  }
+
+  .principles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-40) var(--space-32);
+  }
+}
+
+/* ================================================================ 767px以下：1列（数字 → 説明 → 一覧） */
+
+@media (width < 768px) {
+  .feature {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-24);
+    padding-block: var(--space-40);
+  }
+
+  .feature > :nth-child(3) {
+    grid-column: auto;
+  }
+
+  .featureLists {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-24);
+  }
+
+  .principles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* 表は行ごとに並べ替わる（table.module.css）。比較表の1行目も同じ大きさにそろえる */
+  .comparison tbody tr:first-child > * {
+    padding-block: 0;
+  }
+
+  .comparison tbody tr:first-child td {
+    font-size: var(--fs-row-head);
+  }
+
+  .comparison tbody tr:first-child td br {
+    display: none;
+  }
+
+  .comparison .comparisonRowHead,
+  .sceneHead,
+  .standardHead {
+    font-family: var(--font-display);
+    font-size: var(--fs-row-head);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+}

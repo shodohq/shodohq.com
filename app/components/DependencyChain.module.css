@@ -1,0 +1,102 @@
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-28);
+}
+
+.chain {
+  position: relative;
+}
+
+.nodes {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  padding: 0;
+  list-style: none;
+}
+
+/* 丸をつなぐ罫線。両端の丸の中心から中心まで */
+.nodes::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--node-size) / 2);
+  right: calc(100% / 12);
+  left: calc(100% / 12);
+  border-top: var(--border-strong);
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+  text-align: center;
+}
+
+.circle {
+  position: relative;
+  width: var(--node-size);
+  height: var(--node-size);
+  border: var(--border-node);
+  border-radius: 50%;
+  background: var(--color-bg);
+}
+
+.node:first-child .circle {
+  background: var(--color-ink);
+}
+
+.label {
+  font-size: var(--fs-body);
+  font-weight: 700;
+}
+
+/* 「ID」と「委託先」の間（3つ目と4つ目の間）の点 */
+.cut {
+  position: absolute;
+  top: calc((var(--node-size) - var(--dot-size-sm)) / 2);
+  left: calc(50% - var(--dot-size-sm) / 2);
+  width: var(--dot-size-sm);
+  height: var(--dot-size-sm);
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.caption {
+  font-size: var(--fs-caption);
+  text-align: center;
+  color: var(--color-muted);
+}
+
+/* 767px以下：縦に並べ、点を「ID」と「委託先」の間に置く（design-system.md §8） */
+@media (width < 768px) {
+  /* 丸の間に点（28px）が重ならずに入るだけ空ける */
+  .nodes {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-40);
+  }
+
+  .nodes::before {
+    top: calc(var(--node-size) / 2);
+    bottom: calc(var(--node-size) / 2);
+    right: auto;
+    left: calc(var(--node-size) / 2);
+    border-top: 0;
+    border-left: var(--border-strong);
+  }
+
+  .node {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .cut {
+    top: calc(50% - var(--dot-size-sm) / 2);
+    left: calc((var(--node-size) - var(--dot-size-sm)) / 2);
+  }
+
+  .caption {
+    text-align: left;
+  }
+}

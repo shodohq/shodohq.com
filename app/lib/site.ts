@@ -158,6 +158,8 @@ type PageMetaOptions = {
   description: string;
   /** og:type。トップは website、記事は article */
   type?: "website" | "article";
+  /** 検索に載せないページ（送信完了）。canonical と hreflang も出さない */
+  noindex?: boolean;
 };
 
 /**
@@ -170,6 +172,7 @@ export function pageMeta({
   title,
   description,
   type = "website",
+  noindex = false,
 }: PageMetaOptions): MetaDescriptor[] {
   const origin = siteOriginFrom(matches);
   const absolute = (path: string) => new URL(path, origin).href;
@@ -192,6 +195,14 @@ export function pageMeta({
         },
         { tagName: "link", rel: "alternate", hrefLang: "x-default", href: absolute(path) },
       ];
+
+  if (noindex) {
+    return [
+      { title },
+      { name: "description", content: description },
+      { name: "robots", content: "noindex" },
+    ];
+  }
 
   return [
     { title },
@@ -224,6 +235,59 @@ export function organizationJsonLd(origin: string): MetaDescriptor {
         streetAddress: company.streetAddress,
         addressCountry: "JP",
       },
+    },
+  };
+}
+
+/** 下層ページのtitle。「{ページ名} | 株式会社衝動」（§10） */
+export function pageTitle(name: string, lang: Lang): string {
+  return `${name} | ${company.name[lang]}`;
+}
+
+/**
+ * パンくずの構造化データ（§3.3、§10）。
+ * items はトップを含めない。path は日本語のパス（英語は lang で /en/ を付ける）
+ */
+export function breadcrumbJsonLd(
+  origin: string,
+  lang: Lang,
+  items: readonly { name: string; path: string }[],
+): MetaDescriptor {
+  const all = [{ name: lang === "ja" ? "トップ" : "Home", path: paths.home }, ...items];
+  return {
+    "script:ld+json": {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: all.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: new URL(localizePath(lang, item.path), origin).href,
+      })),
+    },
+  };
+}
+
+/** 記事の構造化データ（§10）。著者は会社 */
+export function articleJsonLd(
+  origin: string,
+  article: { title: string; description: string; date: string; slug: string },
+): MetaDescriptor {
+  return {
+    "script:ld+json": {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: article.description,
+      datePublished: article.date,
+      inLanguage: "ja",
+      mainEntityOfPage: new URL(articlePath(article.slug), origin).href,
+      author: {
+        "@type": "Organization",
+        name: company.name.ja,
+        url: new URL(paths.home, origin).href,
+      },
+      publisher: { "@type": "Organization", name: company.name.ja },
     },
   };
 }

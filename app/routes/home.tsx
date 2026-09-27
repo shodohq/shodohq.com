@@ -1,8 +1,7 @@
-import { Link } from "react-router";
 import { ArrowLink } from "~/components/ArrowLink";
 import { ArticleCard } from "~/components/ArticleCard";
 import { Button } from "~/components/Button";
-import { Icon } from "~/components/Icon";
+import { ProductList } from "~/components/ProductList";
 import { RuleDot } from "~/components/RuleDot";
 import { SectionHead } from "~/components/SectionHead";
 import { Tag } from "~/components/Tag";
@@ -17,6 +16,7 @@ import {
   paths,
   siteOriginFrom,
 } from "~/lib/site";
+import page from "~/styles/page.module.css";
 import type { Route } from "./+types/home";
 import styles from "./home.module.css";
 
@@ -87,34 +87,6 @@ const principles = [
   "国内・閉域で動かせる構成を選べる",
 ];
 
-/** 各行は製品一覧の該当箇所につなぐ（docs/spec.md §4） */
-const products = [
-  {
-    id: "caasm",
-    code: "CAASM",
-    name: "Cyber Asset Attack Surface Management",
-    body: "社内に散らばった資産の情報を集め、ひとつの台帳にまとめます。",
-  },
-  {
-    id: "easm",
-    code: "EASM",
-    name: "External Attack Surface Management",
-    body: "外部から見えるドメインや公開サービスを洗い出し、攻撃の入口を把握します。",
-  },
-  {
-    id: "iasm",
-    code: "IASM",
-    name: "Internal Attack Surface Management",
-    body: "社内ネットワークの内側にある、攻撃されうる範囲を洗い出します。",
-  },
-  {
-    id: "aspm",
-    code: "ASPM",
-    name: "Application Security Posture Management",
-    body: "アプリケーションの脆弱性とリスクを、開発から運用まで一元的に管理します。",
-  },
-];
-
 /** トップ（参照 ja-top.html、ja-top-mobile.html） */
 export default function Home({ loaderData }: Route.ComponentProps) {
   return (
@@ -159,16 +131,16 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </div>
       </section>
 
-      <section className={cx(styles.section, styles.problems)}>
+      <section className={cx(page.section, page.gapLg, styles.problems)}>
         <SectionHead className={styles.problemsHead}>
-          <h2 className={styles.heading}>
+          <h2 className={page.heading}>
             攻撃は、
             <br />
             業務停止として
             <br />
             やってくる。
           </h2>
-          <p className={styles.lead}>
+          <p className={page.lead}>
             2025年、国内でもランサムウェアによって受注や出荷が止まり、影響が数か月続く事案が相次ぎました。被害を小さくするための判断材料は、いまも現場と経営のあいだに散らばったままです。
           </p>
         </SectionHead>
@@ -188,22 +160,22 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
       <section
         id="operations"
-        className={cx(styles.section, styles.ruled)}
+        className={cx(page.section, page.gapLg, page.ruled)}
       >
         <SectionHead>
-          <div className={styles.headMain}>
+          <div className={page.headMain}>
             <div className={styles.eyebrowRow}>
-              <p className={styles.eyebrow}>Pixie for Operations</p>
+              <p className={page.eyebrow}>Pixie for Operations</p>
               {/* 開発中の製品であることの表示。外さない（CLAUDE.md） */}
               <Tag>開発中・デザインパートナー募集</Tag>
             </div>
-            <h2 className={styles.headingLg}>
+            <h2 className={page.headingLg}>
               どこを止めれば、
               <br />
               何が残るか。
             </h2>
           </div>
-          <p className={styles.lead}>
+          <p className={page.lead}>
             資産台帳、構成図、契約書、手順書から、重要業務がどのシステム・ID・委託先・バックアップに依存しているかを示す「停止の地図」をつくります。攻撃を受けたときは、拡散を止めながら重要業務をできるだけ残す遮断案を示し、経営判断の言葉で説明します。
           </p>
         </SectionHead>
@@ -213,14 +185,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               key={feature.title}
               className={styles.feature}
             >
-              <p className={styles.featureLabel}>{feature.label}</p>
+              <p className={page.label}>{feature.label}</p>
               <h3 className={styles.featureTitle}>{feature.title}</h3>
               <p className={styles.featureBody}>{feature.body}</p>
             </li>
           ))}
         </ol>
         <div className={styles.principles}>
-          <span className={styles.principlesLabel}>設計方針</span>
+          <span className={page.label}>設計方針</span>
           {principles.map((principle, index) => (
             <span
               key={principle}
@@ -248,44 +220,27 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
       <section
         id="products"
-        className={cx(styles.section, styles.ruled, styles.products)}
+        className={cx(page.section, page.ruled, styles.products)}
       >
         <SectionHead>
-          <div className={styles.headMain}>
-            <p className={styles.eyebrow}>Pixie シリーズ</p>
-            <h2 className={cx(styles.headingLg, styles.productsHeading)}>
+          <div className={page.headMain}>
+            <p className={page.eyebrow}>Pixie シリーズ</p>
+            <h2 className={cx(page.headingLg, styles.productsHeading)}>
               地図の材料を、
               <br />
               4つの製品で集める。
             </h2>
           </div>
-          <p className={styles.lead}>
+          <p className={page.lead}>
             Pixieの4製品は、それぞれ単独で導入できます。集めた資産と攻撃面のデータは、Pixie for
             Operationsがつくる「停止の地図」の材料になります。現在ベータ版として、PoCにご参加いただける企業を募集しています。
           </p>
         </SectionHead>
-        <div className={styles.productList}>
-          {products.map((product) => (
-            <Link
-              key={product.id}
-              to={`${paths.products}#${product.id}`}
-              className={styles.product}
-            >
-              <span className={styles.productCode}>{product.code}</span>
-              <span className={styles.productText}>
-                <span className={styles.productName}>{product.name}</span>
-                <span className={styles.productBody}>{product.body}</span>
-              </span>
-              <span className={styles.productAside}>
-                <Tag>ベータ</Tag>
-                <Icon
-                  name="arrowLarge"
-                  className={styles.productArrow}
-                />
-              </span>
-            </Link>
-          ))}
-        </div>
+        {/* 各行は製品一覧の該当箇所につなぐ（docs/spec.md §4） */}
+        <ProductList
+          lang="ja"
+          variant="link"
+        />
       </section>
 
       <section
@@ -294,7 +249,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       >
         <div className={styles.ctaMain}>
           <p className={styles.ctaLabel}>PoC・デザインパートナー募集</p>
-          <h2 className={styles.ctaHeading}>
+          <h2 className={page.heading}>
             PoCと
             <br />
             デザインパートナーを

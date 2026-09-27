@@ -1,0 +1,147 @@
+/* フォーム（参照 ja-poc.html、ja-contact.html。docs/design-system.md §7 TextField、TextArea、Radio / Checkbox） */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-36);
+}
+
+/* ハニーポットは画面の外に置く */
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  padding: 0 0 var(--space-14);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+.choices1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+}
+
+.choices2,
+.choices3 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-14) var(--space-24);
+}
+
+.choices3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* ラベル全体を押せるようにし、見た目は32pxの行のまま、押せる範囲を上下に広げて44pxにする（design-system.md §9） */
+.choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: var(--choice-height);
+  font-size: var(--fs-body);
+  cursor: pointer;
+}
+
+.choice::after {
+  content: "";
+  position: absolute;
+  inset: calc((100% - var(--tap-min)) / 2) 0;
+}
+
+.control {
+  flex-shrink: 0;
+  width: var(--control-size);
+  height: var(--control-size);
+  margin: 0;
+  accent-color: var(--color-ink);
+}
+
+.agree {
+  font-size: var(--fs-body-sm);
+}
+
+/* 同意のラベルの中のリンクは、ラベルを押す範囲より前に出す */
+.agree a {
+  position: relative;
+  z-index: 1;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-36) var(--space-40);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.label {
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+/* 参照は、高さ52pxの下に1pxの下線が付く（入力欄の行は53px） */
+.input {
+  box-sizing: content-box;
+  height: var(--field-height);
+  padding: 0;
+  border: 0;
+  border-bottom: var(--border-strong);
+  border-radius: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--fs-input);
+  color: var(--color-ink);
+}
+
+.textarea {
+  padding: var(--space-16);
+  border: var(--border-strong);
+  border-radius: 0;
+  background: var(--color-bg);
+  font-family: inherit;
+  font-size: var(--fs-body);
+  line-height: var(--lh-180);
+  color: var(--color-ink);
+  resize: vertical;
+}
+
+.textarea::placeholder {
+  color: var(--color-muted);
+}
+
+button.submit {
+  padding-inline: var(--space-40);
+}
+
+@media (width < 768px) {
+  .fields,
+  .choices2,
+  .choices3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fields {
+    gap: var(--space-28);
+  }
+}

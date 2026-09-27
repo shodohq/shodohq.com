@@ -2,21 +2,61 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-40);
-  padding: var(--space-72) var(--page-inline) var(--space-112);
+  padding: var(--space-72) var(--page-inline) 0;
+}
+
+.gapSm {
+  gap: var(--space-32);
+}
+
+.bottom-lg {
+  padding-bottom: var(--section-y-md);
+}
+
+.bottom-md {
+  padding-bottom: var(--space-112);
 }
 
 .title {
   font-family: var(--font-display);
-  font-size: var(--fs-page-title);
   font-weight: 800;
-  line-height: var(--lh-page-title);
+  line-height: var(--lh-120);
   letter-spacing: var(--ls-display);
+}
+
+.page {
+  font-size: var(--fs-page-title);
+}
+
+.policy {
+  font-size: var(--fs-policy-title);
+  line-height: var(--lh-125);
+}
+
+.policy:lang(en) {
+  font-size: var(--fs-policy-title-en);
+}
+
+.article {
+  max-width: 1000px;
+  font-size: var(--fs-article-title);
+  font-weight: 700;
+  line-height: var(--lh-150);
+  letter-spacing: normal;
 }
 
 /* 下層ページのスマホの参照はないので、スマホの決まり（design-system.md §8）の値にする */
 @media (width < 768px) {
   .header {
     gap: var(--space-28);
-    padding: var(--space-40) var(--page-inline) var(--section-y-sm);
+    padding-top: var(--space-40);
+  }
+
+  .gapSm {
+    gap: var(--space-24);
+  }
+
+  .bottom-md {
+    padding-bottom: var(--section-y-sm);
   }
 }

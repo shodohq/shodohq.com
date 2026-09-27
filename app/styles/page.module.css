@@ -1,0 +1,191 @@
+/*
+ * 複数のページで使う、セクションと文字の型（docs/design-system.md §3、§4）
+ * ページだけの組み方は、各ルートの .module.css に書く。
+ */
+
+/* ---------------------------------------------------------------- セクション */
+
+/* 上下は --section-y、左右は --page-inline。中身は縦に並べる */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-64);
+  padding: var(--section-y) var(--page-inline);
+}
+
+/* 中身の間隔が72pxのセクション（トップの課題、機能など） */
+.gapLg {
+  gap: var(--space-72);
+}
+
+/* 上に細い罫線を引いて、前のセクションと区切る */
+.ruled {
+  border-top: var(--border-hair);
+}
+
+/* ---------------------------------------------------------------- 見出しと本文 */
+
+/* セクション見出し（52px） */
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-heading-ja);
+}
+
+/* 大きめのセクション見出し（56px） */
+.headingLg {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2-lg);
+  font-weight: 700;
+  line-height: var(--lh-140);
+}
+
+/* 小さめの見出し（40px） */
+.headingSm {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2-sm);
+  font-weight: 700;
+}
+
+/* 見出しの横のリード */
+.lead {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+
+.lead:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
+/* 見出しの上の小さな太字（「Pixie シリーズ」など）と見出しのまとまり */
+.headMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.eyebrow {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--ls-nav-ja);
+}
+
+/* 機能名の上のラベル（「平時に描く」など） */
+.label {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--color-muted);
+}
+
+/* 表や図の下の注記 */
+.note {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-180);
+  color: var(--color-muted);
+}
+
+/* ---------------------------------------------------------------- 下層ページの頭 */
+
+/* H1の下の、明朝の一文とリードの2列（製品、Pixie for Operations） */
+.intro {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-80);
+  align-items: start;
+}
+
+.introStatement {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2-sm);
+  font-weight: 700;
+  line-height: var(--lh-150);
+}
+
+/* H1の下の、幅を絞ったリード（記事一覧、お問い合わせ） */
+.introLead {
+  max-width: var(--article-width);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+}
+
+/* ---------------------------------------------------------------- フォームの帯 */
+
+/* 左に説明、右にフォーム（design-system.md §4「フォーム」）。地は --color-bg-sub */
+.formSection {
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: var(--space-120);
+  padding: var(--section-y) var(--page-inline);
+  background: var(--color-bg-sub);
+}
+
+/* 説明の中の補足（プライバシーポリシーへの案内） */
+.formNote {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-190);
+  color: var(--color-muted);
+}
+
+.formNote a {
+  color: var(--color-muted);
+}
+
+.formNote a:hover {
+  color: var(--color-accent);
+}
+
+/* ================================================================ */
+
+@media (width < 1440px) {
+  .intro {
+    gap: var(--space-48);
+  }
+
+  .formSection {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: var(--space-64);
+  }
+}
+
+@media (width < 1024px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+
+  .formSection {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-48);
+  }
+}
+
+@media (width < 768px) {
+  .section {
+    gap: var(--space-40);
+  }
+
+  .heading {
+    line-height: var(--lh-150);
+  }
+
+  .headingLg {
+    line-height: var(--lh-heading-ja);
+  }
+
+  .headMain {
+    gap: var(--space-20);
+  }
+
+  .eyebrow {
+    font-size: var(--fs-caption);
+    letter-spacing: var(--ls-meta);
+  }
+
+  .label {
+    font-size: var(--fs-label);
+  }
+}

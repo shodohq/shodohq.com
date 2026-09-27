@@ -1,0 +1,89 @@
+/*
+ * 表（docs/design-system.md §7 DataTable）
+ * 列見出しは13pxの --color-muted、行の間に細い罫線。列の幅と行見出しの形は、表ごとに各ページで足す。
+ * 767px以下では、横にスクロールさせずに、行ごとに見出しと値の組に並べ替える（design-system.md §8）。
+ * そのために、各 td に data-label（列見出しの文字）を付けておく。
+ */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-body);
+  line-height: var(--lh-180);
+}
+
+.table th,
+.table td {
+  text-align: left;
+  vertical-align: top;
+}
+
+.table thead th {
+  padding: 0 var(--space-40) var(--space-16) 0;
+  border-bottom: var(--border-strong);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.table tbody th,
+.table tbody td {
+  padding: var(--space-24) var(--space-40) var(--space-24) 0;
+  border-bottom: var(--border-hair);
+}
+
+.table tbody th {
+  padding-right: var(--space-24);
+}
+
+.table tr > :last-child {
+  padding-right: 0;
+}
+
+@media (width < 768px) {
+  .table,
+  .table tbody,
+  .table tr,
+  .table th,
+  .table td {
+    display: block;
+  }
+
+  /* 列見出しは、各値の上に data-label で出すので、画面からは外す（読み上げには残す） */
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .table tbody tr {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding-block: var(--space-20);
+    border-bottom: var(--border-hair);
+  }
+
+  .table tbody tr:first-child {
+    border-top: var(--border-strong);
+  }
+
+  .table tbody th,
+  .table tbody td {
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-family: var(--font-body);
+    font-size: var(--fs-label);
+    font-weight: 500;
+    line-height: var(--lh-180);
+    color: var(--color-muted);
+  }
+}

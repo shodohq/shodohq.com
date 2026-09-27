@@ -1,0 +1,27 @@
+/* お問い合わせ（参照 ja-contact.html） */
+
+.guide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+.guideItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+  padding-top: var(--space-24);
+  border-top: var(--border-strong);
+}
+
+.guideTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-emph);
+  font-weight: 700;
+}
+
+.guideBody {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-190);
+  color: var(--color-text);
+}

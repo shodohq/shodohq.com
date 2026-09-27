@@ -1,0 +1,354 @@
+/*
+ * 記事とポリシーの本文（参照 ja-article-1.html、ja-privacy.html、ja-security-policy.html）
+ * 本文のHTMLは content/ のMarkdownから作るので、要素とクラス（note、def-list、report-box）で当てる。
+ */
+
+.layout {
+  display: grid;
+  grid-template-columns: var(--toc-width) minmax(0, var(--article-width));
+  gap: var(--toc-gap);
+  align-items: start;
+  padding: var(--space-72) var(--page-inline) var(--section-y);
+}
+
+/* ---------------------------------------------------------------- 目次 */
+
+.toc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  font-size: var(--fs-small);
+  line-height: var(--lh-170);
+}
+
+.policy .toc {
+  gap: var(--space-14);
+}
+
+.tocHeading {
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: var(--ls-eyebrow);
+}
+
+.tocLink {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.tocLink:hover {
+  color: var(--color-accent);
+}
+
+/* 1024px以上は左の列に出し、1024px未満は本文の上の <details> に出す */
+.tocNarrow {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- 本文 */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: var(--color-text-article);
+}
+
+.article .body {
+  gap: var(--space-24);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-article-ja);
+}
+
+.policy .body {
+  gap: var(--space-20);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-ja);
+}
+
+.body:lang(en) {
+  line-height: var(--lh-body-en);
+}
+
+/* 変換したHTMLの子を、本文の縦並びの間隔に載せる */
+.html {
+  display: contents;
+}
+
+.html h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: var(--lh-160);
+}
+
+.article .html h2 {
+  margin-top: var(--space-40);
+  font-size: var(--fs-h3);
+}
+
+.policy .html h2 {
+  margin-top: var(--space-36);
+  font-size: var(--fs-h3-sm);
+}
+
+/* 小見出し（H3）のあるポリシー（セキュリティポリシー）は、H2を大きくして階層を見せる（参照どおり） */
+.policy .html:has(h3) h2 {
+  margin-top: var(--space-64);
+  font-size: var(--fs-h3-lg);
+  line-height: var(--lh-150);
+}
+
+.policy .html > h2:first-child {
+  margin-top: 0;
+}
+
+.html h3 {
+  margin-top: var(--space-24);
+  font-size: var(--fs-lead);
+  font-weight: 700;
+}
+
+.html ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-left: 1.4em;
+}
+
+/* 番号付きリストは、左に漢数字を置く2列の形（§8）。英語は算用数字 */
+.html ol {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border-top: var(--border-hair);
+  list-style: none;
+  counter-reset: item;
+}
+
+.html ol > li {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  column-gap: var(--space-8);
+  padding-block: var(--space-20);
+  border-bottom: var(--border-hair);
+  counter-increment: item;
+}
+
+.html ol > li::before {
+  grid-row: 1 / span 2;
+  content: counter(item, cjk-ideographic);
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.html:lang(en) ol > li::before {
+  content: counter(item);
+}
+
+/* 太字の見出しの付いた行。見出しの下に本文を置く */
+.html ol > li > strong:first-child {
+  display: block;
+}
+
+.article .html ol > li {
+  row-gap: var(--space-6);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-190);
+}
+
+.article .html ol > li::before {
+  font-size: var(--fs-h3-sm);
+  line-height: var(--lh-140);
+}
+
+.article .html ol > li > strong:first-child {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-160);
+}
+
+.policy .html ol > li {
+  grid-template-columns: 48px minmax(0, 1fr);
+  padding-block: var(--space-14);
+}
+
+.policy .html ol > li::before {
+  font-size: var(--fs-row-head);
+}
+
+/* 見出しの付いた行のリスト（セキュリティポリシーの基本方針） */
+.policy .html ol:has(> li > strong:first-child) {
+  border-top: var(--border-strong);
+}
+
+.policy .html ol > li:has(> strong:first-child) {
+  row-gap: var(--space-4);
+  padding-block: var(--space-18);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-190);
+}
+
+.policy .html ol > li:has(> strong:first-child)::before {
+  font-size: var(--fs-h5);
+  line-height: var(--lh-150);
+}
+
+.policy .html ol > li > strong:first-child {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-ja);
+}
+
+/* 表（参照の記事1の表） */
+.html table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-body);
+  line-height: var(--lh-180);
+}
+
+.html th {
+  padding-block: var(--space-12);
+  border-block: var(--border-strong);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  text-align: left;
+  color: var(--color-muted);
+}
+
+.html td {
+  padding: var(--space-16) var(--space-24) var(--space-16) 0;
+  border-bottom: var(--border-hair);
+  vertical-align: top;
+}
+
+.html td:last-child {
+  padding-right: 0;
+}
+
+/* 本文中の注記（参照の記事1の「※」の行） */
+.html :global(.note) {
+  font-size: var(--fs-small);
+  line-height: var(--lh-190);
+  color: var(--color-muted);
+}
+
+/*
+ * 見出しの行のない定義リスト（プライバシーポリシー）。
+ * 見出しの列は、いちばん長い見出しに合わせて広げ、120pxより狭くしない（参照は120pxと160px）
+ */
+.html :global(.def-list) {
+  display: grid;
+  grid-template-columns: minmax(120px, max-content) minmax(0, 1fr);
+  column-gap: var(--space-20);
+  border-top: var(--border-hair);
+}
+
+.html :global(.def-list) > div {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  padding-block: var(--space-12);
+  border-bottom: var(--border-hair);
+}
+
+.html :global(.def-list) dt {
+  padding-right: var(--space-48);
+  color: var(--color-muted);
+}
+
+/* 英語版の住所（英語と日本語の2行） */
+.html :global(.def-list) dd > span {
+  display: block;
+}
+
+/* 脆弱性の報告先の箱 */
+.html :global(.report-box) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-24) var(--space-28);
+  background: var(--color-bg-sub);
+}
+
+.html :global(.report-box) > a {
+  font-size: var(--fs-h5);
+  font-weight: 700;
+  text-underline-offset: var(--space-6);
+}
+
+.html :global(.report-box) > p {
+  font-size: var(--fs-small);
+  line-height: var(--lh-180);
+  color: var(--color-text);
+}
+
+/* セキュリティポリシーの末尾の、security.txt の案内（参照では小さな補足の文字） */
+.policy .html > ol + p:last-child {
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.policy .html > ol + p:last-child a {
+  color: var(--color-muted);
+}
+
+.policy .html > ol + p:last-child a:hover {
+  color: var(--color-accent);
+}
+
+/* ================================================================ */
+
+@media (width < 1440px) {
+  .layout {
+    grid-template-columns: 200px minmax(0, var(--article-width));
+  }
+}
+
+@media (width < 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+    padding-top: var(--space-48);
+  }
+
+  .tocWide {
+    display: none;
+  }
+
+  .tocNarrow {
+    display: block;
+    border-block: var(--border-hair);
+  }
+
+  .tocSummary {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap-min);
+    font-size: var(--fs-caption);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    cursor: pointer;
+  }
+
+  .tocNarrow .toc {
+    padding-bottom: var(--space-20);
+  }
+}
+
+@media (width < 768px) {
+  .layout {
+    padding-top: var(--space-40);
+  }
+
+  .html :global(.def-list) {
+    grid-template-columns: 104px minmax(0, 1fr);
+    column-gap: var(--space-12);
+  }
+
+  .html :global(.def-list) dt {
+    padding-right: 0;
+  }
+
+  .article .html h2 {
+    margin-top: var(--space-24);
+  }
+}

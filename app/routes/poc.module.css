@@ -1,0 +1,241 @@
+/* PoC・デザインパートナー募集（参照 ja-poc.html） */
+
+/* ---------------------------------------------------------------- 頭 */
+
+.heroLabel {
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-label);
+  color: var(--color-muted);
+}
+
+h1.heroTitle {
+  line-height: var(--lh-130);
+  letter-spacing: var(--ls-hero);
+}
+
+.heroFoot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-80);
+  align-items: end;
+}
+
+.heroAction {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ---------------------------------------------------------------- 2つの募集 */
+
+.offers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-40);
+}
+
+.offer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  padding: var(--space-48);
+  border: var(--border-strong);
+}
+
+.offerTag {
+  align-self: flex-start;
+}
+
+.offerTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3-lg);
+  font-weight: 700;
+  line-height: var(--lh-140);
+}
+
+.offerBody {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+}
+
+.terms {
+  border-top: var(--border-strong);
+}
+
+.term {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: var(--space-20);
+  padding-block: var(--space-16);
+  border-bottom: var(--border-hair);
+}
+
+.term > dt {
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.term > dd {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-180);
+}
+
+/* ---------------------------------------------------------------- 対象の企業 */
+
+.audiences {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-80);
+  border-top: var(--border-strong);
+}
+
+.audience {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-block: var(--space-36);
+  border-bottom: var(--border-hair);
+}
+
+.audienceTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3-sm);
+  font-weight: 700;
+}
+
+.audienceBody {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-190);
+  color: var(--color-text);
+}
+
+/* ---------------------------------------------------------------- 進め方とデータの扱い */
+
+.process {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-80);
+  padding: var(--section-y) var(--page-inline);
+}
+
+.processColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+.steps,
+.handling {
+  padding: 0;
+  border-top: var(--border-strong);
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: var(--space-16);
+  align-items: baseline;
+  padding-block: var(--space-22);
+  border-bottom: var(--border-hair);
+}
+
+.stepNumeral {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 500;
+}
+
+.stepText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stepTitle {
+  font-size: var(--fs-body-lg);
+  font-weight: 700;
+}
+
+.stepBody {
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.handling > li {
+  padding-block: var(--space-22);
+  border-bottom: var(--border-hair);
+  font-size: var(--fs-body);
+  line-height: var(--lh-190);
+}
+
+/* ---------------------------------------------------------------- 応募フォーム */
+
+.formIntro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.formLead {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+}
+
+/* ================================================================ */
+
+@media (width < 1440px) {
+  .heroFoot,
+  .process {
+    gap: var(--space-48);
+  }
+
+  .audiences {
+    column-gap: var(--space-48);
+  }
+}
+
+@media (width < 1024px) {
+  .heroFoot {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+
+  .heroAction {
+    justify-content: flex-start;
+  }
+
+  .offers,
+  .process {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .process {
+    gap: var(--space-72);
+  }
+}
+
+@media (width < 768px) {
+  .offer {
+    padding: var(--space-28) var(--space-24);
+  }
+
+  .term {
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: var(--space-12);
+  }
+
+  .audiences {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .audience {
+    padding-block: var(--space-28);
+  }
+
+  .step {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: var(--space-12);
+  }
+}

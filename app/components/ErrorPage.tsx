@@ -1,6 +1,7 @@
 import { type Lang, localizePath, paths } from "~/lib/site";
 import styles from "./ErrorPage.module.css";
-import { PageHeader } from "./PageHeader";
+import { PageHeader, PageTitle } from "./PageHeader";
+import { RuleDot } from "./RuleDot";
 import { TextLink } from "./TextLink";
 
 export type ErrorKind = "notFound" | "error";
@@ -50,7 +51,9 @@ export function errorTitle(lang: Lang, kind: ErrorKind): string {
 export function ErrorPage({ lang, kind }: { lang: Lang; kind: ErrorKind }) {
   const { title, body, links } = copy[lang][kind];
   return (
-    <PageHeader title={title}>
+    <PageHeader lang={lang}>
+      <PageTitle>{title}</PageTitle>
+      <RuleDot size="sm" />
       <p className={styles.body}>{body}</p>
       <div className={styles.links}>
         {links.map(([label, path]) => (

@@ -1,0 +1,88 @@
+.row {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) 48px;
+  gap: var(--space-48);
+  align-items: start;
+  padding-block: var(--space-44);
+  border-bottom: var(--border-hair);
+  text-decoration: none;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-top: var(--space-8);
+}
+
+.date {
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.tag {
+  align-self: flex-start;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-list-title);
+  font-weight: 700;
+  line-height: var(--lh-150);
+}
+
+.description {
+  font-size: var(--fs-body);
+  line-height: var(--lh-190);
+  color: var(--color-text);
+}
+
+.arrow {
+  margin-top: var(--space-14);
+}
+
+@media (width < 1440px) {
+  .row {
+    grid-template-columns: 160px minmax(0, 1fr) 40px;
+    gap: var(--space-40);
+  }
+}
+
+/* 日付とタグを1行にして上に置き、矢印は出さない */
+@media (width < 1024px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+    padding-block: var(--space-36);
+  }
+
+  .meta {
+    flex-direction: row;
+    align-items: center;
+    padding-top: 0;
+  }
+
+  .arrow {
+    display: none;
+  }
+}
+
+@media (width < 768px) {
+  .row {
+    padding-block: var(--space-28);
+  }
+
+  .text {
+    gap: var(--space-12);
+  }
+
+  .description {
+    font-size: var(--fs-body-sm);
+  }
+}

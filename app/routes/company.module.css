@@ -1,0 +1,200 @@
+/* 会社情報（参照 ja-company.html） */
+
+/* ---------------------------------------------------------------- 黒い帯（社名の由来） */
+
+.band {
+  display: grid;
+  grid-template-columns: 520px minmax(0, 1fr);
+  gap: var(--space-80);
+  align-items: center;
+  padding: var(--section-y) var(--page-inline);
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text);
+}
+
+.wordmark {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-20);
+}
+
+.wordmarkText {
+  font-family: var(--font-display);
+  font-size: var(--fs-wordmark-lg);
+  font-weight: 800;
+  line-height: var(--lh-none);
+  letter-spacing: var(--ls-display);
+}
+
+.wordmarkDot {
+  flex-shrink: 0;
+  width: var(--dot-size-footer);
+  height: var(--dot-size-footer);
+  margin-bottom: var(--space-20);
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.bandText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.bandLabel {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-dark-muted);
+}
+
+.bandStatement {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3-lg);
+  font-weight: 700;
+  line-height: var(--lh-160);
+}
+
+.bandBody {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-ja);
+  color: var(--color-dark-body);
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- 会社概要（定義リスト） */
+
+.overview {
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: var(--space-80);
+  padding: var(--section-y) var(--page-inline);
+}
+
+.facts {
+  border-top: var(--border-strong);
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: var(--space-32);
+  padding-block: var(--space-26);
+  border-bottom: var(--border-hair);
+}
+
+.fact > dt {
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.fact > dd {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-180);
+}
+
+.corporateNumber {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.factLink {
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.factLink:hover {
+  color: var(--color-accent);
+}
+
+/* ---------------------------------------------------------------- セキュリティへの取り組み（3列） */
+
+.security {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-48);
+}
+
+.securityItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-16);
+  padding-top: var(--space-28);
+  border-top: var(--border-strong);
+}
+
+.securityTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3-sm);
+  font-weight: 700;
+}
+
+.securityBody {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-190);
+  color: var(--color-text);
+}
+
+.email {
+  font-size: var(--fs-body-lg);
+  font-weight: 700;
+  text-underline-offset: var(--space-6);
+}
+
+.fileLink {
+  font-size: var(--fs-body-sm);
+  font-weight: 500;
+  text-underline-offset: var(--space-6);
+}
+
+/* ================================================================ */
+
+@media (width < 1440px) {
+  .band {
+    grid-template-columns: 400px minmax(0, 1fr);
+    gap: var(--space-48);
+  }
+
+  .overview {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: var(--space-48);
+  }
+}
+
+@media (width < 1024px) {
+  .band,
+  .overview {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+
+  .security {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (width < 768px) {
+  .wordmark {
+    gap: var(--space-12);
+  }
+
+  .wordmarkDot {
+    margin-bottom: var(--space-10);
+  }
+
+  .bandText {
+    gap: var(--space-16);
+  }
+
+  .bandLabel {
+    font-size: var(--fs-label);
+  }
+
+  .fact {
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: var(--space-12);
+    padding-block: var(--space-20);
+  }
+}

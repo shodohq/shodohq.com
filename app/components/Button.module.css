@@ -12,6 +12,13 @@
   white-space: nowrap;
 }
 
+/* 送信のボタンは <button> なので、枠と書体をそろえる */
+button.button {
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 .icon {
   flex-shrink: 0;
 }

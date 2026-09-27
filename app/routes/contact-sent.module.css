@@ -1,0 +1,6 @@
+.body {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body-ja);
+  color: var(--color-text);
+  text-wrap: pretty;
+}

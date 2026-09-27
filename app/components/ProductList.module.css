@@ -1,0 +1,133 @@
+/*
+ * 4製品の行（参照 ja-top.html の Pixie シリーズ、ja-products.html）
+ * 列は「製品コード / 正式名と説明 / タグ（と矢印）」。1440pxで 320px / 1fr / 160px（製品一覧は120px）
+ */
+
+.list {
+  border-top: var(--border-strong);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) 160px;
+  gap: var(--space-40);
+  align-items: center;
+  padding-block: var(--space-36);
+  border-bottom: var(--border-hair);
+  text-decoration: none;
+}
+
+.anchor .row {
+  grid-template-columns: 320px minmax(0, 1fr) 120px;
+}
+
+.code {
+  font-family: var(--font-display);
+  font-size: var(--fs-product-code);
+  font-weight: 700;
+  line-height: var(--lh-none);
+  letter-spacing: var(--ls-display);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.name {
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-meta);
+  color: var(--color-muted);
+}
+
+.body {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-180);
+}
+
+.aside {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-20);
+}
+
+.arrow {
+  flex-shrink: 0;
+}
+
+/* ================================================================ 1024〜1439px */
+
+@media (width < 1440px) {
+  .row {
+    grid-template-columns: 240px minmax(0, 1fr) 120px;
+  }
+
+  .anchor .row {
+    grid-template-columns: 240px minmax(0, 1fr) 96px;
+  }
+}
+
+/* ================================================================ 768〜1023px：タグは説明の下 */
+
+@media (width < 1024px) {
+  .row,
+  .anchor .row {
+    grid-template-columns: 200px minmax(0, 1fr);
+    grid-template-areas:
+      "code text"
+      "code aside";
+    gap: var(--space-16) var(--space-40);
+  }
+
+  .code {
+    grid-area: code;
+  }
+
+  .text {
+    grid-area: text;
+  }
+
+  .aside {
+    grid-area: aside;
+    justify-content: flex-start;
+  }
+
+  .arrow {
+    display: none;
+  }
+}
+
+/* ================================================================ 767px以下：1行目にコードとタグ、その下に正式名と説明 */
+
+@media (width < 768px) {
+  .row,
+  .anchor .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "code aside"
+      "name name"
+      "body body";
+    gap: var(--space-10);
+    padding-block: var(--space-24);
+  }
+
+  .code {
+    letter-spacing: normal;
+  }
+
+  .text {
+    display: contents;
+  }
+
+  .name {
+    grid-area: name;
+    font-size: var(--fs-label);
+    letter-spacing: var(--ls-logo);
+  }
+
+  .body {
+    grid-area: body;
+  }
+}
