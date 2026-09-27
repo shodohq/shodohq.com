@@ -20,6 +20,7 @@
 - **スタイル：** CSS Modulesと、グローバルに読み込む `app/styles/tokens.css`（`design/tokens.css` をコピーしたもの。以後はこちらを正とし、`design/` は参照用として残す）。値はトークンの変数で指定する。CSSフレームワーク、CSS-in-JSは入れない
 - **フォント：** `@fontsource/shippori-mincho-b1`（500, 700, 800）と `@fontsource/zen-kaku-gothic-antique`（400, 500, 700）で自己ホストする。Google Fontsには接続しない
 - **記事とポリシー：** `content/` のMarkdownを、ビルドのときにViteプラグインでHTMLに変える（`docs/spec.md` §8）。リクエストのたびに変換しない
+- **lintとフォーマット：** Biome（`biome.jsonc`）。`style` 属性、`<style>` 要素、`.server.ts` 以外での `cloudflare:workers` の読み込みは、lintのエラーになる
 - **アクセス解析：** Google Analytics 4（`docs/spec.md` §11）
 - **画面で動く部分：** スマホのメニュー、記事一覧の絞り込み、フォームの3つ。どれも、JavaScriptが動かなくても使える形にする（`docs/spec.md` §5、§6）
 
@@ -65,13 +66,22 @@ vite.config.ts             build.assetsInlineLimit: 0（§12.2）
 wrangler.jsonc
 ```
 
-## コマンド（テンプレートのもの）
+## コマンド（miseのタスク）
 
-- `npm run dev`：開発サーバー（Workersと同じ実行環境で動く）。CSPはここでは付けない
-- `npm run build`：`react-router build`
-- `npm run preview`：ビルドしたものを手元で動かす。nonce、ヘッダー、フォームの確認はこちらで行う
-- `npm run deploy`：`wrangler deploy`
-- `npm run cf-typegen`：`wrangler.jsonc` から `Env` の型を作る
+開発環境はmiseでそろえる。Nodeのバージョンは `.node-version` に書く（miseとWorkers Buildsの両方が読む）。はじめは `mise trust && mise run setup`。タスクの一覧は `mise tasks`、定義は `mise.toml`。
+
+- `mise run dev`：開発サーバー（Workersと同じ実行環境で動く）。CSPはここでは付けない
+- `mise run build`：本番用のビルド（`react-router build`）
+- `mise run preview`：ビルドしたものを手元で動かす。nonce、ヘッダー、フォームの確認はこちらで行う
+- `mise run typegen`：`wrangler.jsonc` と `.dev.vars` から `Env` の型を、`app/routes.ts` からルートの型を作る
+- `mise run lint`：Biomeで、フォーマット、lint、importの並びを確かめる（warningも失敗にする）
+- `mise run fix`：Biomeで、フォーマットとimportの並びを直し、安全に直せるlintの指摘を直す
+- `mise run typecheck`：型を作り直してから型チェック
+- `mise run check`：PRの前の確認（lint、型チェック、ビルド、`npm audit`、security.txtの期限）
+- `mise run secret <名前>`：秘密の値を `wrangler secret put` で設定する
+- `mise run deploy`：手元からのデプロイ（確認が出る。ふだんは `main` へのマージでWorkers Buildsが出す）
+
+どのタスクも、依存パッケージが変わっていれば先に `npm ci` を行う。`package.json` のスクリプト（`npm run build` など）は、Workers Buildsのために残してある。
 
 ## 完了の条件
 

@@ -1,0 +1,14 @@
+# 手元の開発サーバー（mise run dev）とプレビュー（mise run preview）で使う値。docs/spec.md §15.4
+# mise run setup で .dev.vars にコピーされる。.dev.vars はリポジトリに入れない。
+
+# true にすると、本番以外のオリジンでも X-Robots-Tag: noindex を付けない。
+# 手元でLighthouseのSEOを測るときだけ true にする（docs/spec.md §10）
+ALLOW_INDEXING=false
+
+# テスト用チャンネルのIncoming WebhookのURL。手元とプレビューからは、本番のチャンネルに送らない（docs/spec.md §6.5）。
+# 空のときはSlackに送らず、フォームは502を返す
+SLACK_WEBHOOK_URL_PREVIEW=
+
+# Turnstileを使う場合だけ（未決。docs/open-items.md #4）。手元ではTurnstileのテスト用の鍵を使う
+# TURNSTILE_SITE_KEY=
+# TURNSTILE_SECRET_KEY=

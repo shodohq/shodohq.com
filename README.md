@@ -16,6 +16,33 @@ Claude Designで作ったデザインを、Claude Codeで実装するための�
 | `content/articles/` | 記事3本（フロントマター付きMarkdown） |
 | `content/pages/` | プライバシーポリシーとセキュリティポリシー（日英） |
 | `public/` | `_headers`（静的ファイル用のヘッダー）と `.well-known/security.txt` |
+| `mise.toml` | 開発環境（Node）とタスクの定義 |
+| `biome.jsonc` | lintとフォーマットの設定（Biome） |
+
+## 開発環境
+
+[mise](https://mise.jdx.dev/)で、Nodeのバージョンとタスクをそろえます。Nodeのバージョンは `.node-version` に書いてあり、Cloudflare Workers Buildsも同じファイルを読みます。
+
+```sh
+mise trust        # このリポジトリの mise.toml を信頼する（最初の1回）
+mise run setup    # Node、依存パッケージ、.dev.vars、型を用意する
+mise run dev      # 開発サーバー（http://localhost:5173）
+```
+
+| タスク | 内容 |
+|---|---|
+| `mise run dev` | 開発サーバー（Workersと同じ実行環境。CSPは付かない） |
+| `mise run build` | 本番用のビルド |
+| `mise run preview` | ビルドしたものを手元で動かす（nonce、ヘッダー、フォームの確認用。http://localhost:4173） |
+| `mise run lint` | Biomeで、フォーマット、lint、importの並びを確かめる |
+| `mise run fix` | Biomeで、フォーマットとimportの並びを直し、安全に直せるlintの指摘を直す |
+| `mise run typecheck` | 型を作り直してから型チェック |
+| `mise run check` | PRの前の確認（lint、型チェック、ビルド、`npm audit`、security.txtの期限） |
+| `mise run secret <名前>` | 秘密の値をCloudflareのWorkerに設定する |
+| `mise run deploy` | 手元からのデプロイ（ふだんは `main` へのマージでWorkers Buildsが出す） |
+| `mise run clean` | ビルドの成果物と、作った型を消す |
+
+ほかのタスクは `mise tasks` で見られます。手元で使う値（SlackのテストのWebhook URLなど）は `.dev.vars` に書きます（`mise run setup` が `.dev.vars.example` から作る。リポジトリには入れない）。
 
 ## 使い方
 

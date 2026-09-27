@@ -1,0 +1,64 @@
+// lintとフォーマット（Biome）。実行は mise run lint（確かめるだけ）と mise run fix（直す）
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    // design/ は参照用（書き換えない）。content/ と docs/ はMarkdownなので対象外
+    "includes": ["**", "!design"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    // 属性が2つ以上なら、1行に1つずつ並べる
+    "attributePosition": "multiline"
+  },
+  "css": {
+    "parser": { "cssModules": true }
+  },
+  "assist": {
+    "actions": {
+      "source": { "organizeImports": "on" }
+    }
+  },
+  "linter": {
+    "rules": {
+      "preset": "recommended",
+      "correctness": {
+        // CSPが style-src 'self' なので、<style> 要素を書かない（docs/spec.md §12.2）
+        "noRestrictedElements": {
+          "level": "error",
+          "options": {
+            "elements": {
+              "style": "CSPが style-src 'self' なので、<style> 要素は使えない。CSS Modulesに書く（docs/spec.md §12.2）"
+            }
+          }
+        }
+      },
+      "nursery": {
+        // CSPが style-src 'self' なので、style 属性を書かない（docs/spec.md §12.2）
+        "noInlineStyles": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // 変数と秘密の値は .server.ts のモジュールでだけ読む。画面側のJavaScriptに入らないように（CLAUDE.md）
+      "includes": ["app/**", "!app/**/*.server.ts", "!app/**/*.server.tsx", "!app/**/.server/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "cloudflare:workers": "変数と秘密の値は、名前が .server.ts で終わるモジュール（app/lib/env.server.ts など）で読む（CLAUDE.md）"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+# 開発環境の設定（mise）
+#
+# はじめて使うとき：mise trust && mise run setup
+# タスクの一覧：mise tasks
+# 手元だけの設定は mise.local.toml に書く（リポジトリに入れない）
+
+[settings]
+# Nodeのバージョンは .node-version に書く。Cloudflare Workers Buildsも同じファイルを読む（docs/spec.md §15.5）
+idiomatic_version_file_enable_tools = ["node"]
+
+[env]
+# wrangler と react-router を npx なしで呼べるようにする
+_.path = ["{{config_root}}/node_modules/.bin"]
+
+# ---------------------------------------------------------------- 準備
+
+[tasks.setup]
+description = "最初の準備：依存パッケージ、.dev.vars、型"
+depends = ["typegen"]
+
+[tasks.install]
+description = "package-lock.json のとおりに依存パッケージを入れる（変わっていなければ飛ばす）"
+run = "npm ci --no-fund"
+sources = ["package.json", "package-lock.json"]
+outputs = ["node_modules/.package-lock.json"]
+
+[tasks.dev-vars]
+description = ".dev.vars がなければ .dev.vars.example から作る"
+run = "test -f .dev.vars || cp .dev.vars.example .dev.vars"
+
+[tasks.typegen]
+description = "WorkersのEnvと、React Routerのルートの型を作る"
+depends = ["install", "dev-vars"]
+run = ["wrangler types", "react-router typegen"]
+
+# ---------------------------------------------------------------- 開発
+
+[tasks.dev]
+description = "開発サーバー（Workersと同じ実行環境。CSPは付かない）"
+depends = ["install", "dev-vars"]
+run = "react-router dev"
+raw = true
+
+[tasks.build]
+description = "本番用にビルドする"
+depends = ["install"]
+run = "react-router build"
+
+[tasks.preview]
+description = "ビルドしたものを手元で動かす（nonce、ヘッダー、フォームはこちらで確かめる）"
+depends = ["build", "dev-vars"]
+run = "vite preview"
+raw = true
+
+[tasks.clean]
+description = "ビルドの成果物、作った型、手元の実行の状態を消す"
+run = "rm -rf build .react-router .wrangler node_modules/.vite worker-configuration.d.ts"
+
+# ---------------------------------------------------------------- 確認
+
+[tasks.check]
+description = "PRの前の確認：lint、型、ビルド、依存パッケージの脆弱性、security.txt"
+run = [
+  { task = "lint" },
+  { task = "typecheck" },
+  { task = "build" },
+  { task = "audit" },
+  { task = "check:security-txt" },
+]
+
+[tasks.lint]
+description = "Biomeで、フォーマット、lint、importの並びを確かめる（書き換えない。warningも失敗にする）"
+depends = ["install"]
+run = "biome check --error-on-warnings"
+
+[tasks.fix]
+description = "Biomeで、フォーマットとimportの並びを直し、安全に直せるlintの指摘を直す"
+depends = ["install"]
+run = "biome check --write"
+
+[tasks.typecheck]
+description = "型チェック"
+depends = ["typegen"]
+run = "tsc -b"
+
+[tasks.audit]
+description = "依存パッケージの高リスクの脆弱性がないか確かめる（docs/spec.md §12.3）"
+depends = ["install"]
+run = "npm audit --audit-level=high"
+
+[tasks."check:security-txt"]
+description = "security.txt の Expires が切れておらず、1年より先でないか確かめる（docs/spec.md §12.3）"
+run = '''
+#!/usr/bin/env node
+const fs = require("node:fs");
+const file = "public/.well-known/security.txt";
+const line = fs.readFileSync(file, "utf8").match(/^Expires:\s*(.+)$/m);
+if (!line) {
+  console.error(`${file} に Expires がありません`);
+  process.exit(1);
+}
+const expires = new Date(line[1].trim());
+const days = Math.floor((expires - Date.now()) / 86_400_000);
+if (Number.isNaN(days)) {
+  console.error(`${file} の Expires が日時として読めません：${line[1]}`);
+  process.exit(1);
+}
+if (days < 0) {
+  console.error(`${file} の Expires が切れています：${line[1]}`);
+  process.exit(1);
+}
+if (days > 366) {
+  console.error(`${file} の Expires が1年より先です（RFC 9116）：${line[1]}`);
+  process.exit(1);
+}
+if (days < 30) console.warn(`${file} の Expires まであと${days}日です。更新してください`);
+console.log(`${file}：Expires ${line[1]}（あと${days}日）`);
+'''
+
+# ---------------------------------------------------------------- Cloudflare
+
+[tasks.secret]
+description = "秘密の値をCloudflareのWorkerに設定する（docs/spec.md §15.4）"
+usage = '''
+arg "<name>" help="秘密の値の名前" {
+  choices "SLACK_WEBHOOK_URL" "SLACK_WEBHOOK_URL_SECURITY" "SLACK_WEBHOOK_URL_PREVIEW" "TURNSTILE_SECRET_KEY"
+}
+'''
+run = 'wrangler secret put "${usage_name}"'
+raw = true
+
+[tasks.deploy]
+description = "手元からデプロイする（ふだんは main へのマージでWorkers Buildsが出す）"
+confirm = "手元からCloudflareにデプロイします。ふだんは main へのマージでWorkers Buildsが出します。続けますか？"
+depends = ["check"]
+run = "wrangler deploy"
+raw = true
